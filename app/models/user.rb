@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :password_confirmation
+  attr_accessor :password
+  attr_accessible :username, :password, :password_confirmation, :admin
   belongs_to :phc
 
-  validates :username, :presence => true
+  validates :username, :presence => true, :uniqueness => true
   validates :password, :presence => true, :confirmation => true
+  validates :password_confirmation, :presence => true
 
   before_save :encrypt_password
 
