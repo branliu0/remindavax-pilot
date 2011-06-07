@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110607034930) do
+ActiveRecord::Schema.define(:version => 20110607050222) do
+
+  create_table "patients", :force => true do |t|
+    t.string   "name"
+    t.integer  "mobile"
+    t.boolean  "cell_access"
+    t.integer  "phc_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "phcs", :force => true do |t|
     t.string   "name"
