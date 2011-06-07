@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(:version => 20110607034930) do
 
   create_table "users", :force => true do |t|
     t.string   "username"
-    t.string   "password"
+    t.string   "encrypted_password"
     t.string   "salt"
-    t.boolean  "admin"
+    t.boolean  "admin",              :default => false
     t.integer  "phc_id"
     t.datetime "created_at"
     t.datetime "updated_at"
