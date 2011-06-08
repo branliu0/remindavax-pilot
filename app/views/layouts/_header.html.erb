@@ -1,11 +1,15 @@
 <header>
   <div id="logo">
-    <h1><%= link_to "<span>Reminda</span>vax", root_path %></h1>
+    <h1>
+      <%= link_to(root_path) do %>
+        <span>Reminda</span>vax
+      <% end %>
+    </h1>
   </div>
   <nav>
   <ul>
     <% if logged_in? %>
-      <li>Welcome, <%= current_user.name %></li>
+      <li>Welcome, <%= current_user.username %></li>
       <li>PHC: <%= current_user.phc.name %></li>
       <li><%= link_to "logout", logout_path %></li>
     <% else %>

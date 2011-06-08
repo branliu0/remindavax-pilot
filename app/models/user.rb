@@ -24,10 +24,14 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
 
+  def has_password?(submitted_password)
+    encrypted_password == encrypt(submitted_password)
+  end
+
   def self.authenticate(username, submitted_password)
     user = find_by_username(username)
     return nil if user.nil?
-    return user if user.password == submitted_password
+    return user if user.has_password?(submitted_password)
   end
 
   def self.authenticate_with_salt(id, cookie_salt)
@@ -37,7 +41,15 @@ class User < ActiveRecord::Base
 
   private
   def encrypt_password
-    self.salt = Digest::SHA2.hexdigest("#{Time.now.utc}--#{password}") if new_record?
-    self.encrypted_password = Digest::SHA2.hexdigest("#{salt}--#{password}")
+    self.salt = secure_hash("#{Time.now.utc}--#{password}") if new_record?
+    self.encrypted_password = encrypt(password)
+  end
+
+  def secure_hash(text)
+    Digest::SHA2.hexdigest(text)
+  end
+
+  def encrypt(text)
+    secure_hash("#{salt}--#{text}")
   end
 end
