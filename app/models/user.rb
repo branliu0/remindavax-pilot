@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20110607050222
+#
+# Table name: users
+#
+#  id                 :integer         not null, primary key
+#  username           :string(255)
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean
+#  phc_id             :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :username, :password, :password_confirmation, :admin

@@ -1,7 +1,8 @@
 RemindavaxPilot::Application.routes.draw do
-  get "users/new"
+  resource :patients
+  resource :users
 
-  get "users/create"
+  root :to => 'patients#search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
