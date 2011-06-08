@@ -4,11 +4,6 @@ class PatientsController < ApplicationController
   end
 
   def create
-    # Convert yes/no to boolean
-    cell = params[:patient][:cell_access]
-    params[:patient][:cell_access] = (cell == "yes") ? true :
-                                     (cell == "no" ) ? false : nil
-
     # @phc = current_user.phc
     @phc = Phc.find_by_name("testphc") # Remove
     @patient = @phc.patients.build(params[:patient])

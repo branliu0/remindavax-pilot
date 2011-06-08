@@ -3,17 +3,19 @@
 #
 # Table name: patients
 #
-#  id          :integer         not null, primary key
-#  name        :string(255)
-#  mobile      :integer
-#  cell_access :boolean
-#  phc_id      :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                    :integer         not null, primary key
+#  name                  :string(255)
+#  encrypted_mobile      :string(255)
+#  encrypted_cell_access :string(255)
+#  phc_id                :integer
+#  created_at            :datetime
+#  updated_at            :datetime
 #
 
 class Patient < ActiveRecord::Base
   attr_accessible :name, :mobile, :cell_access
+  attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
   belongs_to :phc
   validates :phc_id, :presence => true
 
@@ -21,25 +23,5 @@ class Patient < ActiveRecord::Base
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
-
-  around_create :encrypt_fields
-  around_update :encrypt_fields
-  around_save :encrypt_fields
-  after_find :after_decrypt_fields
-
-
-  private
-  def encrypt_fields
-    before_encrypt_fields
-    yield
-    after_decrypt_fields
-  end
-
-  def before_encrypt_fields
-    APP_CONFIG['encrypt_key']
-  end
-
-  def after_decrypt_fields
-
-  end
+  validates_inclusion_of :cell_access, :in => %w{yes no}
 end

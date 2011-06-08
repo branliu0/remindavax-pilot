@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(:version => 20110607050222) do
 
   create_table "patients", :force => true do |t|
     t.string   "name"
-    t.integer  "mobile"
-    t.boolean  "cell_access"
+    t.string   "encrypted_mobile"
+    t.string   "encrypted_cell_access"
     t.integer  "phc_id"
     t.datetime "created_at"
     t.datetime "updated_at"
