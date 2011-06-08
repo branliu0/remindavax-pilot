@@ -1,0 +1,16 @@
+<header>
+  <div id="logo">
+    <h1><%= link_to "<span>Reminda</span>vax", root_path %></h1>
+  </div>
+  <nav>
+  <ul>
+    <% if logged_in? %>
+      <li>Welcome, <%= current_user.name %></li>
+      <li>PHC: <%= current_user.phc.name %></li>
+      <li><%= link_to "logout", logout_path %></li>
+    <% else %>
+      <li><%= link_to "login", login_path %></li>
+    <% end %>
+  </ul>
+  </nav>
+</header>
