@@ -1,4 +1,10 @@
 class PatientsController < ApplicationController
+  before_filter :authenticate
+
+  def index
+    @patients = current_user.phc.patients
+  end
+
   def new
     @patient = Patient.new
   end
@@ -16,5 +22,11 @@ class PatientsController < ApplicationController
   end
 
   def search
+    if params[:q]
+      @patients = Patient.search(params[:q])
+      render :index
+    else
+      render :search
+    end
   end
 end

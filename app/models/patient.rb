@@ -24,4 +24,8 @@ class Patient < ActiveRecord::Base
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
   validates_inclusion_of :cell_access, :in => %w{yes no}
+
+  def self.search(query)
+    where('name LIKE ?', "%#{query}%")
+  end
 end

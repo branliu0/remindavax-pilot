@@ -1,11 +1,12 @@
 RemindavaxPilot::Application.routes.draw do
-  resource :patients
-  resource :users
-  resource :sessions
+  resources :patients
+  resources :users
+  resources :sessions
 
   root :to => 'patients#search'
   match '/login', :to => 'sessions#new'
   match '/logout', :to => 'sessions#destroy'
+  match '/search', :to => 'patients#search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

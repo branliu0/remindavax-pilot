@@ -1,0 +1,24 @@
+<%= render :partial => 'search_form' %>
+<h1>Patients</h1>
+<p class="subhead">If the patient you are looking for is not listed below, please add the patient <%= link_to "here", new_patient_path %>.</p>
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      <td>Name</td>
+      <td>Next Appointment</td>
+      <td>Mobile</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |p| %>
+      <tr>
+        <td></td>
+        <td><%= p.name %></td>
+        <td>June 1, 2011 (change)</td>
+        <td><%= p.mobile %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "Add New Patient to Database", new_patient_path, :id => "add_patient" %>
