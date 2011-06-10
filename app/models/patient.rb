@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110607050222
+# Schema version: 20110610034250
 #
 # Table name: patients
 #
@@ -18,6 +18,8 @@ class Patient < ActiveRecord::Base
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
   belongs_to :phc
   validates :phc_id, :presence => true
+  has_many :visits, :dependent => :destroy, :order => "date DESC"
+  has_many :appointments, :dependent => :destroy, :order => "date DESC"
 
   validates :name, :presence => true
   validates :mobile, :presence => true, :numericality => true
@@ -25,7 +27,31 @@ class Patient < ActiveRecord::Base
   validates :cell_access, :presence => true
   validates_inclusion_of :cell_access, :in => %w{yes no}
 
-  def self.search(query)
-    where('name LIKE ?', "%#{query}%")
+  before_save :randomize_receiving_texts
+
+  def self.search(phc, query)
+    where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
+  end
+
+  def checked_in?
+    latest_visit && latest_visit.date == Date.today
+  end
+
+  def latest_visit
+    Visit.where("patient_id = ?", self).order("date DESC").first
+  end
+
+  def scheduled_appointments
+    if latest_visit
+      Appointment.where("patient_id = ? AND date > ?", self, latest_visit.date).order("date DESC")
+    else
+      appointments
+    end
+  end
+
+  private
+  def randomize_receiving_texts
+    # Randomly put this patient into control or experimental group
+    self.receiving_texts = (rand(2) == 1) if new_record?
   end
 end

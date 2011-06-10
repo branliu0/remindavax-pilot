@@ -1,5 +1,10 @@
 RemindavaxPilot::Application.routes.draw do
-  resources :patients
+  resources :patients do
+    member do
+      put 'check_in'
+      resources :appointments
+    end
+  end
   resources :users
   resources :sessions
 

@@ -1,0 +1,31 @@
+<h1><%= @patient.name %></h1>
+
+<table id="patient_details">
+  <tr><td>Mobile:</td><td><%= @patient.mobile %></td></tr>
+  <tr><td>Cell Access:</td><td><%= @patient.cell_access %></td></tr>
+</table>
+
+<h3>Latest Visit</h3>
+<% if @visit %>
+  <p><%= @visit.description %> on <b><%= @visit.date %></b></p>
+<% else %>
+  <p><%= @patient.name %> has not visited yet!</p>
+<% end %>
+
+<h3>Scheduled Appointments</h3>
+<ul>
+  <% @appointments.each do |appt| %>
+    <li><%= appt.description %> on <b><%= appt.date %></b></li>
+  <% end %>
+</ul>
+
+<h3>Add Appointment</h3>
+<%= semantic_form_for @appointment, :input_html => { :id => "appointment_form" } do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= f.input :description %>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>

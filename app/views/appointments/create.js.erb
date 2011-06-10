@@ -1,0 +1,3 @@
+<% if not @appointment.errors.any? %>
+  $("ul#appointments").append(<?= "<li>#{@appointment.description} on <b>#{@appointment.date}</b></li>" ?>);
+<% end %>
