@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_filter :authenticate, :except => [:new, :create]
   def new
   end
 

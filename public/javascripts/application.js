@@ -10,6 +10,17 @@ $(function() {
   });
 
   $('input[datepicker="true"]').datepicker({ dateFormat: "dd-mm-yy"});
+  $('input[autocomplete="patient"]').autocomplete({
+    minLength: 2,
+    source: function(req, add) {
+      $.getJSON('/patients', req, function(data) {
+        add(data);
+      });
+    }
+  });
+
+  var current_time = new Date();
+  $.cookie('time_zone', current_time.getTimezoneOffset());
 });
 
 function set_checked_in(patient_id, checked_in) {

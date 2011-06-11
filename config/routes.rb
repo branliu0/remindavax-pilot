@@ -7,6 +7,7 @@ RemindavaxPilot::Application.routes.draw do
   end
   resources :users
   resources :sessions
+  resources :phcs
 
   root :to => 'patients#search'
   match '/login', :to => 'sessions#new'

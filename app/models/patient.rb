@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110610034250
+# Schema version: 20110610043401
 #
 # Table name: patients
 #
@@ -10,6 +10,7 @@
 #  phc_id                :integer
 #  created_at            :datetime
 #  updated_at            :datetime
+#  receiving_texts       :boolean
 #
 
 class Patient < ActiveRecord::Base

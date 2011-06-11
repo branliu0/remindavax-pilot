@@ -1,8 +1,11 @@
 class PatientsController < ApplicationController
-  before_filter :authenticate
 
   def index
     @patients = current_user.phc.patients.paginate(:page => params[:page])
+    respond_to do |format|
+      format.html
+      format.js { render :json => @patients.map(&:name) }
+    end
   end
 
   def show
@@ -17,8 +20,7 @@ class PatientsController < ApplicationController
   end
 
   def create
-    # @phc = current_user.phc
-    @phc = Phc.find_by_name("testphc") # Remove
+    @phc = current_user.phc
     @patient = @phc.patients.build(params[:patient])
     if @patient.save
       flash[:success] = "Created a new patient!"
@@ -31,7 +33,7 @@ class PatientsController < ApplicationController
   def search
     if params[:q]
       @patients = Patient.search(current_user.phc, params[:q]).paginate(:page => params[:page])
-      render :index
+      render :index 
     else
       render :search
     end

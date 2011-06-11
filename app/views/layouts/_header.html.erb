@@ -9,7 +9,12 @@
   <nav>
   <ul>
     <% if logged_in? %>
-      <li>Welcome, <%= current_user.username %></li>
+      <li>
+      <%= "Welcome, #{current_user.username}" %>
+      <% if current_user.admin? %>
+        | <%= link_to "Create User", new_user_path %> | <%= link_to "Create PHC", new_phc_path %>
+      <% end %>
+      </li>
       <li>PHC: <%= current_user.phc.name %></li>
       <li><%= link_to "logout", logout_path %></li>
     <% else %>
