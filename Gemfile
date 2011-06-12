@@ -9,6 +9,7 @@ gem 'attr_encrypted', '~> 1.2.0'
 gem 'jquery-rails', '>= 1.0.3'
 gem 'mysql'
 gem 'passenger'
+gem 'active_enum', '~> 0.9.1'
 
 group :development do
   gem 'rspec-rails', '2.5.0'

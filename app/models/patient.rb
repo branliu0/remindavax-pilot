@@ -15,10 +15,14 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :mobile, :cell_access, :expected_delivery_date
+  attr_accessible :name, :husband_name, :mobile, :cell_access, :taayi_card_number, :expected_delivery_date, :caste
+  attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :expected_delivery_date, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :caste, :key => APP_CONFIG['encrypt_key']
+
   belongs_to :phc
   validates :phc_id, :presence => true
   has_many :visits, :dependent => :destroy, :order => "date DESC"
@@ -29,7 +33,11 @@ class Patient < ActiveRecord::Base
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
   validates_inclusion_of :cell_access, :in => %w{yes no}
+  validates :taayi_card_number, :presence => true, :numericality => true
+  validates_length_of :taayi_card_number, :is => 7
   validates :expected_delivery_date, :presence => true
+  validates :caste, :presence => true
+  validates_inclusion_of :caste, :in => CASTE_OPTIONS
 
   before_save :randomize_receiving_texts
 
@@ -54,8 +62,9 @@ class Patient < ActiveRecord::Base
   end
 
   private
+
+  # Randomly put this patient into control or experimental group
   def randomize_receiving_texts
-    # Randomly put this patient into control or experimental group
     self.receiving_texts = (rand(2) == 1) if new_record?
     return true # Apparently things break if this method doesn't return true
   end

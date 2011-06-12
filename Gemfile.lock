@@ -15,6 +15,7 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
+    active_enum (0.9.1)
     activemodel (3.0.7)
       activesupport (= 3.0.7)
       builder (~> 2.1.2)
@@ -115,6 +116,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_enum (~> 0.9.1)
   annotate-models
   attr_encrypted (~> 1.2.0)
   factory_girl_rails
