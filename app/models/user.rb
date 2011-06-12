@@ -15,7 +15,7 @@
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :username, :password, :password_confirmation, :admin, :phc_id
+  attr_accessible :username, :password, :password_confirmation, :admin
   belongs_to :phc
   validates :phc_id, :presence => true
 

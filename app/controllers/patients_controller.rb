@@ -33,7 +33,7 @@ class PatientsController < ApplicationController
   def search
     if params[:q]
       @patients = Patient.search(current_user.phc, params[:q]).paginate(:page => params[:page])
-      render :index 
+      render :index
     else
       render :search
     end
