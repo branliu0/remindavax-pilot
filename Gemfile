@@ -7,6 +7,8 @@ gem 'will_paginate', '3.0.pre2'
 gem 'formtastic', '~> 1.2.4'
 gem 'attr_encrypted', '~> 1.2.0'
 gem 'jquery-rails', '>= 1.0.3'
+gem 'mysql'
+gem 'passenger'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
