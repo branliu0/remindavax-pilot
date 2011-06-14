@@ -6,7 +6,7 @@
     <%= form.input :cell_access, :as => :radio, :collection => ["yes", "no"] %>
     <%= form.input :taayi_card_number %>
     <%= form.input :expected_delivery_date, :as => :string, :input_html => { :datepicker => "true" } %>
-    <%= form.input :caste, :collection => CASTE_OPTIONS %>
+    <%= form.input :caste, :as => :select, :collection => %w{SC ST Other} %>
   <% end %>
   <%= form.buttons do %>
     <%= form.commit_button %>

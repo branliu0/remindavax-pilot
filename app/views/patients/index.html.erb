@@ -9,8 +9,10 @@
     <tr>
       <td></td>
       <td>Name</td>
-      <td>Next Appointment</td>
       <td>Mobile</td>
+      <td>Taayi Card Number</td>
+      <td>Caste</td>
+      <td>Next Appointment</td>
     </tr>
   </thead>
   <tbody>
@@ -18,8 +20,10 @@
       <tr patient="<%= p.id %>" checked_in="<%= p.checked_in? %>">
         <td></td>
         <td><%= link_to p.name, p %></td>
-        <td>June 1, 2011 (change)</td>
         <td><%= p.mobile %></td>
+        <td><%= (p.taayi_card_number.nil?) ? "N/A" : p.taayi_card_number %></td>
+        <td><%= p.caste %></td>
+        <td><%= (p.next_appointment.nil?) ? "None" : p.next_appointment.date %></td>
       </tr>
     <% end %>
   </tbody>

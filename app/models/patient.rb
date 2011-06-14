@@ -25,19 +25,19 @@ class Patient < ActiveRecord::Base
 
   belongs_to :phc
   validates :phc_id, :presence => true
-  has_many :visits, :dependent => :destroy, :order => "date DESC"
-  has_many :appointments, :dependent => :destroy, :order => "date DESC"
+  has_many :visits, :dependent => :destroy, :order => "date ASC"
+  has_many :appointments, :dependent => :destroy, :order => "date ASC"
 
   validates :name, :presence => true
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
   validates_inclusion_of :cell_access, :in => %w{yes no}
-  validates :taayi_card_number, :presence => true, :numericality => true
+  validates :taayi_card_number, :numericality => true
   validates_length_of :taayi_card_number, :is => 7
   validates :expected_delivery_date, :presence => true
   validates :caste, :presence => true
-  validates_inclusion_of :caste, :in => CASTE_OPTIONS
+  validates_inclusion_of :caste, :in => %w{SC ST Other}
 
   before_save :randomize_receiving_texts
 
@@ -55,10 +55,14 @@ class Patient < ActiveRecord::Base
 
   def scheduled_appointments
     if latest_visit
-      Appointment.where("patient_id = ? AND date > ?", self, latest_visit.date).order("date DESC")
+      Appointment.where("patient_id = ? AND date > ?", self, latest_visit.date).order("date ASC")
     else
       appointments
     end
+  end
+
+  def next_appointment
+    scheduled_appointments.first if not scheduled_appointments.nil?
   end
 
   private

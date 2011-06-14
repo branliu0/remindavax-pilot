@@ -10,14 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110612041053) do
+ActiveRecord::Schema.define(:version => 20110614044818) do
+
+  create_table "appointment_types", :force => true do |t|
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.integer  "appointment_type_id"
+  end
 
   create_table "appointments", :force => true do |t|
     t.integer  "patient_id"
     t.date     "date"
-    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "appointment_type_id"
   end
 
   create_table "patients", :force => true do |t|
@@ -29,6 +37,9 @@ ActiveRecord::Schema.define(:version => 20110612041053) do
     t.datetime "updated_at"
     t.boolean  "receiving_texts"
     t.string   "encrypted_expected_delivery_date"
+    t.string   "encrypted_husband_name"
+    t.string   "encrypted_caste"
+    t.string   "encrypted_taayi_card_number"
   end
 
   create_table "phcs", :force => true do |t|

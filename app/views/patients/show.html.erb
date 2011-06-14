@@ -1,9 +1,11 @@
 <h1><%= @patient.name %></h1>
 
-<table id="patient_details">
-  <tr><td>Mobile:</td><td><%= @patient.mobile %></td></tr>
-  <tr><td>Cell Access:</td><td><%= @patient.cell_access %></td></tr>
-</table>
+<ul id="patient_details">
+  <li><b>Mobile:</b> <%= @patient.mobile %></li>
+  <li><b>Taayi Card Number:</b> <%= (@patient.taayi_card_number.nil?) ? "N/A" : @patient.taayi_card_number %></li>
+  <li><b>Cell Access:</b> <%= @patient.cell_access %></li>
+  <li><b>Caste:</b> <%= @patient.caste %></li>
+</ul>
 
 <h3>Latest Visit</h3>
 <% if @visit %>
@@ -14,8 +16,9 @@
 
 <h3>Scheduled Appointments</h3>
 <ul>
-  <% @appointments.each do |appt| %>
-    <li><%= appt.description %> on <b><%= appt.date %></b></li>
+  <%-# For some reason, the appointments array contains an extra appointment that is nil everywhere except for the patient_id. Could not replicate this in rails console %>
+  <% @appointments.reject{|a| a.date.nil?}.each do |appt| %>
+    <li><%= appt.name %> on <b><%= appt.date %></b></li>
   <% end %>
 </ul>
 
@@ -23,7 +26,7 @@
 <%= semantic_form_for @appointment, :input_html => { :id => "appointment_form" } do |f| %>
   <%= f.inputs do %>
     <%= f.input :date, :as => :string, :input_html => { :datepicker => "true" } %>
-    <%= f.input :description %>
+    <%= f.input :appointment_type, :collection => AppointmentType.names %>
   <% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>

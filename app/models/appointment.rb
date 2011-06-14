@@ -11,12 +11,16 @@
 #  updated_at  :datetime
 #
 
-# require "#{::Rails.root.to_s}/lib/validators/DateFormatValidator"
-
 class Appointment < ActiveRecord::Base
-  attr_accessible :date
+  attr_accessible :date, :appointment_type
   belongs_to :patient
-  validates :patient_id, :presence => true
+  belongs_to :appointment_type, :primary_key => :appointment_type_id
 
-  validates :date, :presence => true # , :date_format => true
+  validates :patient_id, :presence => true
+  validates :appointment_type, :presence => true
+  validates :date, :presence => true
+
+  def name
+    appointment_type.name[1..-2]
+  end
 end
