@@ -29,6 +29,6 @@ function set_checked_in(patient_id, checked_in) {
     elt.html('<span class="checked_in">Checked in</span>');
   }
   else {
-    elt.html('<a href="/patients/' + patient_id + '/check_in" data-method="put" data-remote="true" rel="nofollow">Check in</a>');
+    elt.html('<a href="/patients/' + patient_id + '/check_in" data-method="post" data-remote="true" rel="nofollow">Check in</a>');
   }
 }

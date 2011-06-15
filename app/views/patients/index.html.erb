@@ -13,6 +13,7 @@
       <td>Taayi Card Number</td>
       <td>Caste</td>
       <td>Next Appointment</td>
+      <td>Latest Visit</td>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,7 @@
         <td><%= (p.taayi_card_number.nil?) ? "N/A" : p.taayi_card_number %></td>
         <td><%= p.caste %></td>
         <td><%= (p.next_appointment.nil?) ? "None" : p.next_appointment.date %></td>
+        <td><%= (p.latest_visit.nil?) ? "None" : p.latest_visit.date %></td>
       </tr>
     <% end %>
   </tbody>

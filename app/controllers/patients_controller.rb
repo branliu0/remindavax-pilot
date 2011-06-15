@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
   def show
     @patient = Patient.find(params[:id])
     @visit = @patient.latest_visit
-    @appointments = @patient.scheduled_appointments
+    @appointments = @patient.scheduled_appointments.dup
     @appointment = @patient.appointments.build
   end
 
@@ -41,8 +41,11 @@ class PatientsController < ApplicationController
 
   def check_in
     @patient = Patient.find(params[:id])
-    @patient.visits.create!(:date => Date.today)
+    if not @patient.checked_in?
+      @patient.visits.create!(:date => Date.today, :description => params[:description])
+    end
     respond_to do |format|
+      format.html { redirect_to @patient }
       format.js
     end
   end

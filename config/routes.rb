@@ -1,7 +1,7 @@
 RemindavaxPilot::Application.routes.draw do
   resources :patients do
     member do
-      put 'check_in'
+      post 'check_in'
       resources :appointments
     end
   end
