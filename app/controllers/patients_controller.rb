@@ -24,7 +24,7 @@ class PatientsController < ApplicationController
     @patient = @phc.patients.build(params[:patient])
     if @patient.save
       flash[:success] = "Created a new patient!"
-      redirect_to '/'
+      redirect_to @patient
     else
       render :new
     end
@@ -33,7 +33,12 @@ class PatientsController < ApplicationController
   def search
     if params[:q]
       @patients = Patient.search(current_user.phc, params[:q]).paginate(:page => params[:page])
-      render :index
+      if @patients.any?
+        render :index
+      else
+        @patient = Patient.new(:name => params[:q])
+        render :new
+      end
     else
       render :search
     end
