@@ -21,6 +21,6 @@ class Appointment < ActiveRecord::Base
   validates :date, :presence => true
 
   def name
-    appointment_type.name[1..-2]
+    appointment_type.name
   end
 end
