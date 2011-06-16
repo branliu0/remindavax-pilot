@@ -1,12 +1,14 @@
 <h1><%= @patient.name %></h1>
 
-<ul id="patient_details">
-  <li><b>Expected Delivery Date:</b> <%= @patient.expected_delivery_date %></li>
-  <li><b>Mobile:</b> <%= @patient.mobile %></li>
-  <li><b>Taayi Card Number:</b> <%= (@patient.taayi_card_number.nil?) ? "N/A" : @patient.taayi_card_number %></li>
-  <li><b>Cell Access:</b> <%= @patient.cell_access %></li>
-  <li><b>Caste:</b> <%= @patient.caste %></li>
-</ul>
+<div id="patient_details">
+  <ul>
+    <li><b>Expected Delivery Date:</b> <%= @patient.expected_delivery_date %></li>
+    <li><b>Mobile:</b> <%= @patient.mobile %></li>
+    <li><b>Taayi Card Number:</b> <%= (@patient.taayi_card_number.nil?) ? "N/A" : @patient.taayi_card_number %></li>
+    <li><b>Cell Access:</b> <%= @patient.cell_access %></li>
+    <li><b>Caste:</b> <%= @patient.caste %></li>
+  </ul>
+</div>
 
 <h3>Latest Visit</h3>
 <% if @visit %>

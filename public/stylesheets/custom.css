@@ -1,0 +1,105 @@
+/*****************************/
+/****       GENERAL       ****/
+/*****************************/
+thead tr td{
+  border-bottom: 1px solid #CCC;
+  font-weight: bold;
+}
+
+label {
+  font-size: 12px;
+}
+
+form input[type="text"] {
+  font-size: 14px;
+  padding: 4px;
+}
+
+/*****************************/
+/****        BODY         ****/
+/*****************************/
+body {
+  background-color: #EEE;
+}
+div#wrap {
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+}
+
+/*****************************/
+/****      HEADER         ****/
+/*****************************/
+
+header {
+  border-top: 15px solid #129289;
+  border-bottom: 1px solid #CCC;
+  padding-top: 10px;
+  margin-bottom: 15px;
+}
+
+h1#logo a {
+  text-decoration: none;
+  color: black;
+  font-size: 55px;
+}
+
+h1#logo a span {
+  color: #EA1C26;
+}
+
+nav {
+  text-align: right;
+}
+
+nav ul li {
+  list-style-type: none;
+}
+
+/******************************/
+/****        SEARCH        ****/
+/******************************/
+
+form#search_form {
+  text-align: center;
+}
+
+form#search_form input {
+  vertical-align: middle;
+}
+
+form#search_form input[type="text"] {
+  font-size: 30px;
+  padding: 5px;
+}
+
+form#search_form input[type="submit"] {
+  height: 47px;
+  background-color: #CCC;
+  border: 1px solid #AAA;
+  padding: 8px;
+  font-size: 20px;
+}
+
+form#search_form input[type="submit"]:hover {
+  background-color: #EEE;
+}
+
+/******************************/
+/****    patients/show     ****/
+/******************************/
+/*
+div#patient_details {
+  border: 2px solid #CCC;
+  padding: 10px;
+}
+  */
+
+div#patient_details ul {
+  list-style-type: none;
+  padding: 0;
+}
