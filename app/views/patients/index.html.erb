@@ -14,6 +14,7 @@
       <td>Caste</td>
       <td>Next Appointment</td>
       <td>Latest Visit</td>
+      <td></td>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,7 @@
         <td><%= p.caste %></td>
         <td><%= (p.next_appointment.nil?) ? "None" : p.next_appointment.date %></td>
         <td><%= (p.latest_visit.nil?) ? "None" : p.latest_visit.date %></td>
+        <td><%= link_to "Delete", p, :method => :delete, :confirm => "Are you sure you want to delete this patient?" %></td>
       </tr>
     <% end %>
   </tbody>

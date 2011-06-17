@@ -14,4 +14,11 @@ class AppointmentsController < ApplicationController
       format.js
     end
   end
+
+  def destroy
+    @appt = Appointment.find_by_id(params[:id])
+    @appt.destroy if @appt
+    flash[:success] = "Successfully deleted appointment"
+    redirect_to @appt.patient
+  end
 end

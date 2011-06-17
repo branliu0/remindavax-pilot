@@ -29,6 +29,14 @@ class PatientsController < ApplicationController
       render :new
     end
   end
+  
+  def destroy
+    @patient = Patient.find_by_id(params[:id])
+    @patient.destroy if @patient
+    flash[:success] = "Successfully deleted patient"
+    flash[:success] += " #{@patient.name}" if @patient
+    redirect_to patients_path
+  end
 
   def search
     if params[:q]
