@@ -1,4 +1,6 @@
 RemindavaxPilot::Application.routes.draw do
+  match 'patients/autocomplete' => 'patients#autocomplete'
+
   resources :patients do
     member do
       post 'check_in'

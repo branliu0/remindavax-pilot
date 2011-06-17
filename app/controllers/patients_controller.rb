@@ -2,10 +2,6 @@ class PatientsController < ApplicationController
 
   def index
     @patients = current_user.phc.patients.paginate(:page => params[:page])
-    respond_to do |format|
-      format.html
-      format.js { render :json => @patients.map(&:name) }
-    end
   end
 
   def show
@@ -60,6 +56,13 @@ class PatientsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @patient }
       format.js
+    end
+  end
+
+  def autocomplete
+    @patients = Patient.search(current_user.phc, params[:term]).map(&:name)
+    respond_to do |format|
+      format.json { render :json => @patients }
     end
   end
 end

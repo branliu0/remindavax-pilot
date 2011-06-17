@@ -13,7 +13,7 @@ $(function() {
   $('input[autocomplete="patient"]').autocomplete({
     minLength: 2,
     source: function(req, add) {
-      $.getJSON('/patients', req, function(data) {
+      $.getJSON('/patients/autocomplete/', req, function(data) {
         add(data);
       });
     }
