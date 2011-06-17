@@ -13,8 +13,11 @@
 
 class Appointment < ActiveRecord::Base
   attr_accessible :date, :appointment_type_id
+
   belongs_to :patient
   belongs_to :appointment_type, :primary_key => :appointment_type_id
+
+  default_scope :order => "date ASC"
 
   validates :patient_id, :presence => true
   validates :appointment_type, :presence => true

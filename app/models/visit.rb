@@ -15,8 +15,11 @@ require "#{::Rails.root.to_s}/lib/validators/DateFormatValidator"
 
 class Visit < ActiveRecord::Base
   attr_accessible :date
-  belongs_to :patient
-  validates :patient_id, :presence => true
 
+  belongs_to :patient
+
+  default_scope :order => "date ASC"
+
+  validates :patient_id, :presence => true
   validates :date, :presence => true # , :date_format => true
 end

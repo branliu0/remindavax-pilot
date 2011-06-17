@@ -25,8 +25,10 @@ class Patient < ActiveRecord::Base
 
   belongs_to :phc
   validates :phc_id, :presence => true
-  has_many :visits, :dependent => :destroy, :order => "date ASC"
-  has_many :appointments, :dependent => :destroy, :order => "date ASC"
+  has_many :visits, :dependent => :destroy
+  has_many :appointments, :dependent => :destroy
+
+  default_scope :order => 'name ASC'
 
   validates :name, :presence => true
   validates :mobile, :presence => true, :numericality => true
