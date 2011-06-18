@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110612041053
+# Schema version: 20110614044818
 #
 # Table name: patients
 #
@@ -12,6 +12,9 @@
 #  updated_at                       :datetime
 #  receiving_texts                  :boolean
 #  encrypted_expected_delivery_date :string(255)
+#  encrypted_husband_name           :string(255)
+#  encrypted_caste                  :string(255)
+#  encrypted_taayi_card_number      :string(255)
 #
 
 class Patient < ActiveRecord::Base
@@ -41,7 +44,8 @@ class Patient < ActiveRecord::Base
   validates :caste, :presence => true
   validates_inclusion_of :caste, :in => %w{SC ST Other}
 
-  before_save :randomize_receiving_texts
+  before_create :randomize_receiving_texts
+  after_create :generate_appointments
 
   def self.search(phc, query)
     where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
@@ -71,7 +75,18 @@ class Patient < ActiveRecord::Base
 
   # Randomly put this patient into control or experimental group
   def randomize_receiving_texts
-    self.receiving_texts = (rand(2) == 1) if new_record?
+    self.receiving_texts = (rand(2) == 1)
     return true # Apparently things break if this method doesn't return true
+  end
+
+  # Array of [appointment_type_id, time interval from expected delivery date]
+  AUTO_APPOINTMENTS = [[1, -6.months], [2, -3.months], [3, -1.month]]
+  def generate_appointments
+    AUTO_APPOINTMENTS.each do |a|
+      date = Date.parse(expected_delivery_date) + a[1]
+      if date > Date.today
+        appointments.create!(:date => date, :appointment_type_id => a[0])
+      end
+    end
   end
 end
