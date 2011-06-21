@@ -3,6 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp/
 config/config.yml
+config/database.yml
 awstats-icon
 awstatsicons
 icon
