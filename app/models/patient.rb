@@ -18,8 +18,9 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :husband_name, :mobile, :cell_access, :taayi_card_number, :expected_delivery_date, :caste
+  attr_accessible :name, :husband_name, :subcenter, :mobile, :cell_access, :taayi_card_number, :expected_delivery_date, :caste
   attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :subcenter, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110614044818) do
+ActiveRecord::Schema.define(:version => 20110622040948) do
 
   create_table "appointment_types", :force => true do |t|
     t.string   "message"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20110614044818) do
     t.string   "encrypted_husband_name"
     t.string   "encrypted_caste"
     t.string   "encrypted_taayi_card_number"
+    t.string   "encrypted_subcenter"
   end
 
   create_table "phcs", :force => true do |t|

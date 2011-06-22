@@ -9,6 +9,7 @@
     <tr>
       <td></td>
       <td>Name</td>
+      <td>Subcenter</td>
       <td>Mobile</td>
       <td>Taayi Card Number</td>
       <td>Caste</td>
@@ -22,6 +23,7 @@
       <tr patient="<%= p.id %>" checked_in="<%= p.checked_in? %>">
         <td></td>
         <td><%= link_to p.name, p %></td>
+        <td><%= p.subcenter %></td>
         <td><%= p.mobile %></td>
         <td><%= (p.taayi_card_number.nil?) ? "N/A" : p.taayi_card_number %></td>
         <td><%= p.caste %></td>
