@@ -39,8 +39,8 @@ class Patient < ActiveRecord::Base
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
   validates_inclusion_of :cell_access, :in => %w{yes no}
-  validates :taayi_card_number, :numericality => true
-  validates_length_of :taayi_card_number, :is => 7
+  validates :taayi_card_number, :numericality => true, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
+  validates_length_of :taayi_card_number, :is => 7, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates :expected_delivery_date, :presence => true
   validates :caste, :presence => true
   validates_inclusion_of :caste, :in => %w{SC ST Other}
