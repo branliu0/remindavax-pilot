@@ -1,0 +1,18 @@
+<%= semantic_form_for @patient do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name %>
+    <%= form.input :husband_name %>
+    <%= form.input :mother_age %>
+    <%= form.input :subcenter %>
+    <%= form.input :mobile %>
+    <%= form.input :cell_access, :as => :radio, :collection => ["yes", "no"] %>
+    <%= form.input :taayi_card_number %>
+    <%= form.input :expected_delivery_date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= form.input :caste, :as => :select, :collection => %w{SC ST Other} %>
+    <%= form.input :education %>
+    <%= form.input :delivery_place %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button :label => (@patient.new_record?) ? 'Create Registration' : 'Update Registration' %>
+  <% end %>
+<% end %>

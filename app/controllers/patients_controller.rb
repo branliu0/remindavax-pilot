@@ -19,17 +19,31 @@ class PatientsController < ApplicationController
     @phc = current_user.phc
     @patient = @phc.patients.build(params[:patient])
     if @patient.save
-      flash[:success] = "Created a new patient!"
+      flash[:success] = "Created a new registration!"
       redirect_to @patient
     else
       render :new
     end
   end
-  
+
+  def edit
+    @patient = Patient.find(params[:id])
+  end
+
+  def update
+    @patient = Patient.find(params[:id])
+    if @patient.update_attributes(params[:patient])
+      flash[:success] = 'Updated registration!'
+      redirect_to @patient
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @patient = Patient.find_by_id(params[:id])
     @patient.destroy if @patient
-    flash[:success] = "Successfully deleted patient"
+    flash[:success] = "Successfully deleted registration"
     flash[:success] += " #{@patient.name}" if @patient
     redirect_to patients_path
   end
