@@ -81,6 +81,6 @@ class PatientsController < ApplicationController
   end
 
   def today
-    @patients = current_user.phc.patients.select(&:appointment_today?).paginate(:page => params[:page])
+    @patients = current_user.patients_due_today.paginate(:page => params[:page])
   end
 end
