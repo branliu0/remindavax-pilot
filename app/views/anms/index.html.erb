@@ -1,0 +1,22 @@
+<h2>ANMs</h2>
+
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Mobile</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @anms.each do |anm| %>
+      <tr>
+        <td><%= link_to anm.name, anm %></td>
+        <td><%= anm.mobile %></td>
+        <td><%= link_to "Edit", edit_anm_path(anm) %></td>
+        <td><%= link_to "Delete", anm, :method => :delete, :confirm => "Are you sure you want to delete this ANM?" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

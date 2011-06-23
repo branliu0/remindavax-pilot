@@ -12,8 +12,9 @@
       <% if current_user.admin? %>
         | <%= link_to "Create User", new_user_path %> | <%= link_to "Create PHC", new_phc_path %>
       <% end %>
+      | <%= link_to "Create ANM", new_anm_path %> | <%= link_to "Create Registration", new_patient_path %>
       </li>
-      <li>PHC: <b><%= current_user.phc.name %></b> | <%= link_to "all registrations", patients_path %> | <%= link_to "due today", today_patients_path %> | <%= link_to "search", search_path %></li>
+      <li>PHC: <b><%= current_user.phc.name %></b> | <%= link_to "ANMs", anms_path %> | <%= link_to "all registrations", patients_path %> | <%= link_to "due today", today_patients_path %> | <%= link_to "search", search_path %></li>
       <li><%= link_to "logout", logout_path %></li>
     <% else %>
       <li><%= link_to "login", login_path %></li>
