@@ -14,4 +14,8 @@ class Phc < ActiveRecord::Base
   has_many :patients
 
   validates :name, :presence => true
+
+  def patients_due_today
+    patients.select(&:appointment_today?)
+  end
 end

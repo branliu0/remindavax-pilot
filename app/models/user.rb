@@ -29,10 +29,6 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
 
-  def patients_due_today
-    phc.patients.select(&:appointment_today?)
-  end
-
   def self.authenticate(username, submitted_password)
     user = find_by_username(username)
     return nil if user.nil?
