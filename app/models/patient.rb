@@ -22,11 +22,13 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :husband_name, :mother_age, :subcenter, :mobile, :cell_access,
-    :taayi_card_number, :expected_delivery_date, :caste, :education, :delivery_place
+  attr_accessible :name, :husband_name, :mother_age, :subcenter, :anm_id, :mobile, :cell_access,
+    :taayi_card_number, :ec_number, :expected_delivery_date, :caste, :education, :delivery_place
 
   belongs_to :phc
   validates :phc_id, :presence => true
+  belongs_to :anm
+  validates :anm_id, :presence => true
   has_many :visits, :dependent => :destroy
   has_many :appointments, :dependent => :destroy
 
@@ -45,6 +47,7 @@ class Patient < ActiveRecord::Base
   end
   validates :taayi_card_number, :numericality => true, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates_length_of :taayi_card_number, :is => 7, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
+  validates :ec_number, :presence => true, :numericality => true, :length => { :within => 2..3 }
   validates :expected_delivery_date, :presence => true
   validates :caste, :presence => true
   enumerate :caste do
@@ -79,6 +82,7 @@ class Patient < ActiveRecord::Base
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :ec_number, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :expected_delivery_date, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :caste, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :education, :key => APP_CONFIG['encrypt_key']
