@@ -26,4 +26,8 @@ class Appointment < ActiveRecord::Base
   def name
     appointment_type.name
   end
+
+  def info
+    "#{name} on #{date}"
+  end
 end

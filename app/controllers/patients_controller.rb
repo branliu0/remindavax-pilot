@@ -79,4 +79,8 @@ class PatientsController < ApplicationController
       format.json { render :json => @patients }
     end
   end
+
+  def today
+    @patients = current_user.phc.patients.select(&:appointment_today?).paginate(:page => params[:page])
+  end
 end

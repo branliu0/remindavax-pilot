@@ -6,10 +6,8 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        @appointments = @patient.scheduled_appointments
-        @visit = @patient.latest_visit
-        @appointment = @patient.appointments.build if not @appointment.errors.any?
-        render 'patients/show', :id => @patient
+        flash[:success] = 'Successfully added an appointment!'
+        redirect_to @patient
       end
       format.js
     end

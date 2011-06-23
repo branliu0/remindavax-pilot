@@ -111,6 +111,10 @@ class Patient < ActiveRecord::Base
     scheduled_appointments.first if not scheduled_appointments.nil?
   end
 
+  def appointment_today?
+    appointments.select {|a| a.date == Date.today }.any?
+  end
+
   private
 
   # Randomly put this patient into control or experimental group

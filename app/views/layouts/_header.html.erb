@@ -8,12 +8,12 @@
   <ul>
     <% if logged_in? %>
       <li>
-      <%= "Welcome, #{current_user.username}" %>
+      Welcome, <b><%= current_user.username %></b>
       <% if current_user.admin? %>
         | <%= link_to "Create User", new_user_path %> | <%= link_to "Create PHC", new_phc_path %>
       <% end %>
       </li>
-      <li>PHC: <%= current_user.phc.name %> | <%= link_to "registrations", patients_path %></li>
+      <li>PHC: <b><%= current_user.phc.name %></b> | <%= link_to "all registrations", patients_path %> | <%= link_to "due today", today_patients_path %> | <%= link_to "search", search_path %></li>
       <li><%= link_to "logout", logout_path %></li>
     <% else %>
       <li><%= link_to "login", login_path %></li>

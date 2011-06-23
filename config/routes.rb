@@ -2,6 +2,9 @@ RemindavaxPilot::Application.routes.draw do
   match 'patients/autocomplete' => 'patients#autocomplete'
 
   resources :patients do
+    collection do
+      get 'today'
+    end
     member do
       post 'check_in'
       resources :appointments
@@ -11,7 +14,7 @@ RemindavaxPilot::Application.routes.draw do
   resources :sessions
   resources :phcs
 
-  root :to => 'patients#search'
+  root :to => redirect('/patients/today')
   match '/login', :to => 'sessions#new'
   match '/logout', :to => 'sessions#destroy'
   match '/search', :to => 'patients#search'
