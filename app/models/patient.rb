@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110614044818
+# Schema version: 20110623020111
 #
 # Table name: patients
 #
@@ -15,21 +15,15 @@
 #  encrypted_husband_name           :string(255)
 #  encrypted_caste                  :string(255)
 #  encrypted_taayi_card_number      :string(255)
+#  encrypted_subcenter              :string(255)
+#  encrypted_mother_age             :string(255)
+#  encrypted_education              :string(255)
+#  encrypted_delivery_place         :string(255)
 #
 
 class Patient < ActiveRecord::Base
   attr_accessible :name, :husband_name, :mother_age, :subcenter, :mobile, :cell_access,
     :taayi_card_number, :expected_delivery_date, :caste, :education, :delivery_place
-  attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :mother_age, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :subcenter, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :expected_delivery_date, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :caste, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :education, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :delivery_place, :key => APP_CONFIG['encrypt_key']
 
   belongs_to :phc
   validates :phc_id, :presence => true
@@ -45,18 +39,50 @@ class Patient < ActiveRecord::Base
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
-  validates_inclusion_of :cell_access, :in => %w{yes no}
+  enumerate :cell_access do
+    value :name => 'yes'
+    value :name => 'no'
+  end
   validates :taayi_card_number, :numericality => true, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates_length_of :taayi_card_number, :is => 7, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates :expected_delivery_date, :presence => true
   validates :caste, :presence => true
-  validates_inclusion_of :caste, :in => %w{SC ST Other}
+  enumerate :caste do
+    value :name => 'SC'
+    value :name => 'ST'
+    value :name => 'Other'
+  end
   validates :education, :presence => true
-  # TODO: Validate education in enum %w{Illiterate, Literate, Primary
-  # Education, High School, Degree, Other}
+  enumerate :education do
+    value :name => 'Illiterate'
+    value :name => 'Literate'
+    value :name => 'Primary Education'
+    value :name => 'High School'
+    value :name => 'Degree'
+    value :name => 'Other'
+  end
   validates :delivery_place, :presence => true
-  # TODO: Validate place_delivery in enum %w{PHC, CHC, TAluk Hospital,
-  # District Hospital, Private Hospital, Other}
+  enumerate :delivery_place do
+    value :name => 'PHC'
+    value :name => 'CHC'
+    value :name => 'Taluk Hospital'
+    value :name => 'District Hospital'
+    value :name => 'Private Hospital'
+    value :name => 'Other'
+  end
+
+  # Note: attr_encrypted _must_ go after enumerate (active_enum) in order to
+  # work.
+  attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :mother_age, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :subcenter, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :expected_delivery_date, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :caste, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :education, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :delivery_place, :key => APP_CONFIG['encrypt_key']
 
   before_create :randomize_receiving_texts
   after_create :generate_appointments

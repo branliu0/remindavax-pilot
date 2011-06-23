@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110622040948) do
+ActiveRecord::Schema.define(:version => 20110623020111) do
 
   create_table "appointment_types", :force => true do |t|
     t.string   "message"
@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(:version => 20110622040948) do
     t.string   "encrypted_caste"
     t.string   "encrypted_taayi_card_number"
     t.string   "encrypted_subcenter"
+    t.string   "encrypted_mother_age"
+    t.string   "encrypted_education"
+    t.string   "encrypted_delivery_place"
   end
 
   create_table "phcs", :force => true do |t|

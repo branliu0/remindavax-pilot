@@ -8,7 +8,7 @@ ActiveEnum.setup do |config|
   config.extend_classes = [ ActiveRecord::Base ]
 
   # Return name string as value for attribute method
-  config.use_name_as_value = false
+  config.use_name_as_value = true
 
   # Storage of values
   config.storage = :memory
