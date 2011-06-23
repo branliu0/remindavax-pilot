@@ -18,14 +18,18 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :husband_name, :subcenter, :mobile, :cell_access, :taayi_card_number, :expected_delivery_date, :caste
+  attr_accessible :name, :husband_name, :mother_age, :subcenter, :mobile, :cell_access,
+    :taayi_card_number, :expected_delivery_date, :caste, :education, :delivery_place
   attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :mother_age, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :subcenter, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :expected_delivery_date, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :caste, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :education, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :delivery_place, :key => APP_CONFIG['encrypt_key']
 
   belongs_to :phc
   validates :phc_id, :presence => true
@@ -35,6 +39,9 @@ class Patient < ActiveRecord::Base
   default_scope :order => 'name ASC'
 
   validates :name, :presence => true
+  # No validation for husband name
+  validates :mother_age, :presence => true, :numericality => true
+  # No validation for subcenter
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
@@ -44,6 +51,12 @@ class Patient < ActiveRecord::Base
   validates :expected_delivery_date, :presence => true
   validates :caste, :presence => true
   validates_inclusion_of :caste, :in => %w{SC ST Other}
+  validates :education, :presence => true
+  # TODO: Validate education in enum %w{Illiterate, Literate, Primary
+  # Education, High School, Degree, Other}
+  validates :delivery_place, :presence => true
+  # TODO: Validate place_delivery in enum %w{PHC, CHC, TAluk Hospital,
+  # District Hospital, Private Hospital, Other}
 
   before_create :randomize_receiving_texts
   after_create :generate_appointments
