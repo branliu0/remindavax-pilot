@@ -122,6 +122,10 @@ class Patient < ActiveRecord::Base
     appointments.select {|a| a.date == Date.today }.any?
   end
 
+  def sent_sms_today?
+    sms.select{ |sms| sms.date == Date.today }.any?
+  end
+
   private
 
   # Randomly put this patient into control or experimental group

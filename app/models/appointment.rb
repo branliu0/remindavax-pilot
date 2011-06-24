@@ -32,16 +32,16 @@ class Appointment < ActiveRecord::Base
     appointment_type.message.gsub(/%date%/, date).gsub(/%delivery_place%/, patient.delivery_place || "Undefined")
   end
 
-  def date
-    d = read_attribute(:date)
-    d && d.strftime("%m-%d-%Y")
+  def date_str
+    date.strftime("%m-%d-%Y")
   end
 
   def info
-    "#{name} on #{date}"
+    "#{name} on #{date_str}"
   end
 
   def sms_message
-    "+#{name}+     #{message}"
+    msg = "+#{name}+     #{message}"
+    msg = "!!IMPORTANT!! " + msg if date < Date.today # Add a warning if this appt is overdue
   end
 end
