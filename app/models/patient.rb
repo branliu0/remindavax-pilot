@@ -31,6 +31,7 @@ class Patient < ActiveRecord::Base
   validates :anm_id, :presence => true
   has_many :visits, :dependent => :destroy
   has_many :appointments, :dependent => :destroy
+  has_many :sms
 
   default_scope :order => 'name ASC'
 

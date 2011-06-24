@@ -10,6 +10,7 @@ gem 'jquery-rails', '>= 1.0.3'
 gem 'mysql'
 gem 'passenger'
 gem 'active_enum', '~> 0.9.1'
+gem 'curb'
 
 group :development do
   gem 'rspec-rails', '2.5.0'

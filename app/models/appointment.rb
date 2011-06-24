@@ -16,6 +16,7 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :patient
   belongs_to :appointment_type, :primary_key => :appointment_type_id
+  has_many :sms
 
   default_scope :order => "date ASC"
 
