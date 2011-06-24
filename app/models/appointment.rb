@@ -28,7 +28,20 @@ class Appointment < ActiveRecord::Base
     appointment_type.name
   end
 
+  def message
+    appointment_type.message.gsub(/%date%/, date).gsub(/%delivery_place%/, patient.delivery_place || "Undefined")
+  end
+
+  def date
+    d = read_attribute(:date)
+    d && d.strftime("%m-%d-%Y")
+  end
+
   def info
     "#{name} on #{date}"
+  end
+
+  def sms_message
+    "+#{name}+     #{message}"
   end
 end
