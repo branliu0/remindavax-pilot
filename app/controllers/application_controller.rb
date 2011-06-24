@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
+  include SmsHelper
 
   before_filter :set_timezone
   before_filter :authenticate

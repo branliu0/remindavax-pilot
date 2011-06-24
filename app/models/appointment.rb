@@ -16,6 +16,7 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :patient
   belongs_to :appointment_type, :primary_key => :appointment_type_id
+  has_many :sms
 
   default_scope :order => "date ASC"
 
@@ -27,7 +28,20 @@ class Appointment < ActiveRecord::Base
     appointment_type.name
   end
 
+  def message
+    appointment_type.message.gsub(/%date%/, date).gsub(/%delivery_place%/, patient.delivery_place || "Undefined")
+  end
+
+  def date_str
+    date.strftime("%m-%d-%Y")
+  end
+
   def info
-    "#{name} on #{date}"
+    "#{name} on #{date_str}"
+  end
+
+  def sms_message
+    msg = "+#{name}+     #{message}"
+    msg = "!!IMPORTANT!! " + msg if date < Date.today # Add a warning if this appt is overdue
   end
 end

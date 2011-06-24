@@ -22,7 +22,7 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :husband_name, :mother_age, :subcenter, :anm_id, :mobile, :cell_access,
+  attr_accessible :name, :husband_name, :mother_age, :subcenter, :village, :anm_id, :mobile, :cell_access,
     :taayi_card_number, :ec_number, :expected_delivery_date, :caste, :education, :delivery_place
 
   belongs_to :phc
@@ -31,6 +31,7 @@ class Patient < ActiveRecord::Base
   validates :anm_id, :presence => true
   has_many :visits, :dependent => :destroy
   has_many :appointments, :dependent => :destroy
+  has_many :sms
 
   default_scope :order => 'name ASC'
 
@@ -38,6 +39,7 @@ class Patient < ActiveRecord::Base
   # No validation for husband name
   validates :mother_age, :presence => true, :numericality => true
   # No validation for subcenter
+  validates :village, :presence => true
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :cell_access, :presence => true
@@ -79,6 +81,7 @@ class Patient < ActiveRecord::Base
   attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mother_age, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :subcenter, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :village, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :taayi_card_number, :key => APP_CONFIG['encrypt_key']
@@ -117,6 +120,10 @@ class Patient < ActiveRecord::Base
 
   def appointment_today?
     appointments.select {|a| a.date == Date.today }.any?
+  end
+
+  def sent_sms_today?
+    sms.select{ |sms| sms.date == Date.today }.any?
   end
 
   private

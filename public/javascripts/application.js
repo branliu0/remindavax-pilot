@@ -9,7 +9,7 @@ $(function() {
     set_checked_in(patient_id, checked_in);
   });
 
-  $('input[datepicker="true"]').datepicker({ dateFormat: "dd-mm-yy"});
+  $('input[datepicker="true"]').datepicker({ dateFormat: "M-dd-yy"});
   $('input[autocomplete="patient"]').autocomplete({
     minLength: 2,
     source: function(req, add) {

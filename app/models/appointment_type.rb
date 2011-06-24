@@ -17,8 +17,4 @@ class AppointmentType < ActiveRecord::Base
   def self.names
     Hash[*all.collect { |a| [a.name, a.appointment_type_id] }.flatten]
   end
-
-  def sms_message
-    "+#{name}+     #{message}"
-  end
 end

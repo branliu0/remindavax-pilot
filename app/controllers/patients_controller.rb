@@ -83,4 +83,11 @@ class PatientsController < ApplicationController
   def today
     @patients = current_user.phc.patients_due_today.paginate(:page => params[:page])
   end
+
+  def prepare_sms
+    @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now) +
+      current_user.phc.find_appointments_by_date(:date => 3.days.from_now)
+    @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now)
+    @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago)
+  end
 end
