@@ -4,6 +4,7 @@ RemindavaxPilot::Application.routes.draw do
   resources :patients do
     collection do
       get 'today'
+      get 'prepare_sms'
     end
     member do
       post 'check_in'

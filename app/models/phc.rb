@@ -19,4 +19,20 @@ class Phc < ActiveRecord::Base
   def patients_due_today
     patients.select(&:appointment_today?)
   end
+
+  def find_appointments_by_date(options)
+    query = Appointment.includes(:patient).joins(:patient)
+      .where("appointments.date > (SELECT MAX(date) FROM visits WHERE visits.patient_id = patients.id) OR (SELECT COUNT(1) FROM visits WHERE visits.patient_id = patients.id) = 0") # Ensure that this appointment has not been attended
+      .where("patients.phc_id = ?", id)
+    if options[:date]
+      query = query.where("appointments.date = ?", options[:date])
+    elsif options[:after]
+      query = query.where("appointments.date > ?", options[:after])
+    elsif options[:before]
+      query = query.where("appointments.date < ?", options[:before])
+    end
+    query.select do |appt|
+      not appt.patient.checked_in?
+    end
+  end
 end

@@ -1,0 +1,50 @@
+<h2>Advance Reminders</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Subcenter</td>
+      <td>Village</td>
+      <td>ANM Name</td>
+      <td>ANM Mobile</td>
+      <td>Appointment</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'reminder', :collection => @advance_reminders %>
+  </tbody>
+</table>
+
+<h2>Reminders</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Subcenter</td>
+      <td>Village</td>
+      <td>ANM Name</td>
+      <td>ANM Mobile</td>
+      <td>Appointment</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'reminder', :collection => @reminders %>
+  </tbody>
+</table>
+
+<h2>Alerts</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Subcenter</td>
+      <td>Village</td>
+      <td>ANM Name</td>
+      <td>ANM Mobile</td>
+      <td>Appointment</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'reminder', :collection => @alerts %>
+  </tbody>
+</table>
