@@ -100,9 +100,9 @@ class PatientsController < ApplicationController
 
   private
   def get_reminders
-    @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now) +
-      current_user.phc.find_appointments_by_date(:date => 3.days.from_now)
-    @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now)
-    @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago)
+    @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now.to_date) +
+      current_user.phc.find_appointments_by_date(:date => 3.days.from_now.to_date)
+    @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now.to_date)
+    @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago.to_date)
   end
 end
