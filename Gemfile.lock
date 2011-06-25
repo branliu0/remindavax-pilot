@@ -61,7 +61,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mysql (2.8.1)
+    mysql2 (0.2.11)
     nokogiri (1.4.4)
     passenger (3.0.7)
       daemon_controller (>= 0.2.5)
@@ -125,7 +125,7 @@ DEPENDENCIES
   faker
   formtastic (~> 1.2.4)
   jquery-rails (>= 1.0.3)
-  mysql
+  mysql2 (~> 0.2.11)
   passenger
   rails (= 3.0.7)
   rake (= 0.8.7)
