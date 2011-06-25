@@ -1,16 +1,12 @@
 class AppointmentsController < ApplicationController
   def create
+    # TODO: Give some sort of feedback when the save fails
     @patient = Patient.find(params[:id])
     @appointment = @patient.appointments.build(params[:appointment])
-    @appointment.save
-
-    respond_to do |format|
-      format.html do
-        flash[:success] = 'Successfully added an appointment!'
-        redirect_to @patient
-      end
-      format.js
+    if @appointment.save
+      flash[:success] = 'Successfully added an appointment!'
     end
+    redirect_to @patient
   end
 
   def destroy
