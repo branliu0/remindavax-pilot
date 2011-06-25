@@ -11,6 +11,7 @@ gem 'mysql2', '~> 0.2.11'
 gem 'passenger'
 gem 'active_enum', '~> 0.9.1'
 gem 'curb'
+gem 'log4r'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
