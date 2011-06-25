@@ -33,7 +33,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def date_str
-    date.strftime("%m-%d-%Y")
+    date.strftime("%d-%m-%Y")
   end
 
   def info
