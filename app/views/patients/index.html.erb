@@ -7,7 +7,6 @@
 <table id="patients">
   <thead>
     <tr>
-      <td></td>
       <td>Name</td>
       <td>Subcenter</td>
       <td>Mobile</td>
@@ -21,8 +20,7 @@
   </thead>
   <tbody>
     <% @patients.each do |p| %>
-      <tr patient="<%= p.id %>" checked_in="<%= p.checked_in? %>">
-        <td></td>
+      <tr>
         <td><%= link_to p.name, p %></td>
         <td><%= p.subcenter %></td>
         <td><%= p.mobile %></td>
