@@ -20,7 +20,7 @@
         <td></td>
         <td><%= link_to p.name, p %></td>
         <td><%= p.subcenter %></td>
-        <td><%= (@patient.anm.nil?) ? "None" : (link_to @patient.anm.name, @patient.anm) %></td>
+        <td><%= (p.anm.nil?) ? "None" : (link_to p.anm.name, p.anm) %></td>
         <td><%= (p.next_appointment.nil?) ? "None" : p.next_appointment.info %></td>
         <td><%= link_to "Edit", edit_patient_path(p) %></td>
         <td><%= link_to "Delete", p, :method => :delete, :confirm => "Are you sure you want to delete this registration?" %></td>
