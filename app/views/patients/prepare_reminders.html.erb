@@ -53,5 +53,5 @@
   <% [@advance_reminders, @reminders, @alerts].flatten.each do |a| %>
     <%= hidden_field_tag "appointments[]", a.id %>
   <% end %>
-  <%= submit_tag "Send SMS Reminders" %>
+  <%= submit_tag "Send SMS Reminders", :confirm => "Are you ready to send these SMS now?" %>
 <% end %>
