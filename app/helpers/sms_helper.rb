@@ -1,8 +1,8 @@
 module SmsHelper
-  def send_reminder(patient, appointment)
+  def send_reminder(appointment)
     msg = appointment.sms_message
-    send_sms(patient.mobile, msg)
-    Sms.create!(:message => msg, :patient_id => patient.id, :appointment_id => appointment.id)
+    send_sms(appointment.patient.mobile, msg)
+    Sms.create!(:message => msg, :patient_id => appointment.patient.id, :appointment_id => appointment.id)
   end
 
   private

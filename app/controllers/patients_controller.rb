@@ -84,7 +84,21 @@ class PatientsController < ApplicationController
     @patients = current_user.phc.patients_due_today.paginate(:page => params[:page])
   end
 
-  def prepare_sms
+  def prepare_reminders
+    get_reminders
+  end
+
+  def send_reminders
+    appts = Appointment.find(params[:appointments])
+    appts.each do |a|
+      send_reminder(a)
+    end
+    flash[:success] = "Successfully sent #{appts.length} reminders!"
+    redirect_to patients_path
+  end
+
+  private
+  def get_reminders
     @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now) +
       current_user.phc.find_appointments_by_date(:date => 3.days.from_now)
     @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now)
