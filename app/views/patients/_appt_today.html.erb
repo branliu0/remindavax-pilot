@@ -1,5 +1,5 @@
-  <tr patient="<%= appt_today.patient.id %>" checked_in="<%= appt_today.patient.checked_in? %>">
-    <td></td>
+  <tr>
+    <td class="check-in" patient="<%= appt_today.patient.id %>" checked_in="<%= appt_today.patient.checked_in? %>"></td>
     <td><%= link_to appt_today.patient.name, appt_today.patient %></td>
     <td><%= appt_today.patient.subcenter %></td>
     <td><%= (appt_today.patient.anm.nil?) ? "None" : (link_to appt_today.patient.anm.name, appt_today.patient.anm) %></td>
