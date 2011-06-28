@@ -15,6 +15,9 @@
       | <%= link_to "Create ANM", new_anm_path %> | <%= link_to "Create Registration", new_patient_path %>
       </li>
       <li>PHC: <b><%= current_user.phc.name %></b>
+      <% if current_user.admin? %>
+        | <%= link_to "PHCs", phcs_path %>
+      <% end %>
       | <%= link_to "ANMs", anms_path %>
       | <%= link_to "all cases", patients_path %>
       | <%= link_to "due today", today_patients_path %>

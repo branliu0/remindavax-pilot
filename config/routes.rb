@@ -14,9 +14,11 @@ RemindavaxPilot::Application.routes.draw do
   end
   resources :users
   resources :sessions
-  resources :phcs
+  resources :phcs do
+    resources :subcenters, :only => [:new, :create, :index]
+  end
   resources :anms
-  resources :subcenters
+  resources :subcenters, :only => [:show, :destroy]
 
   root :to => redirect('/patients/today')
   match '/login', :to => 'sessions#new'

@@ -1,0 +1,19 @@
+<h2><%= @phc.name %></h2>
+
+<h4>Subcenters</h4>
+<ul>
+  <% @phc.subcenters.each do |sc| %>
+    <li><%= link_to sc.name, sc %> | <%= link_to "Delete", sc, :method => :delete, :confirm => "Are you sure you want to delete this subcenter?" %></li>
+  <% end %>
+</ul>
+
+<h4>Create New Subcenter for <%= @phc.name %></h4>
+<%= semantic_form_for @subcenter, :url => phc_subcenters_path(@phc) do |form |%>
+  <%= form.inputs do %>
+    <%= form.input :name %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button %>
+  <% end %>
+<% end %>
+
