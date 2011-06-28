@@ -90,16 +90,10 @@ form#search_form input[type="submit"]:hover {
 }
 
 /******************************/
-/****    patients/show     ****/
+/****        /show         ****/
 /******************************/
-/*
-div#patient_details {
-  border: 2px solid #CCC;
-  padding: 10px;
-}
-  */
 
-div#patient_details ul {
+ul.details {
   list-style-type: none;
   padding: 0;
 }

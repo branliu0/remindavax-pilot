@@ -1,21 +1,19 @@
 <h1><%= @patient.name %></h1>
 <%= link_to "Edit", edit_patient_path(@patient) %>
 
-<div id="patient_details">
-  <ul>
-    <li><b>Husband Name:</b> <%= @patient.husband_name %></li>
-    <li><b>Mother Age:</b> <%= @patient.mother_age %></li>
-    <li><b>Subcenter:</b> <%= link_to @patient.subcenter.name, @patient.subcenter %></li>
-    <li><b>ANM:</b> <%= (@patient.anm.nil?) ? "None" : (link_to @patient.anm.name, @patient.anm) %></li>
-    <li><b>Mobile:</b> <%= @patient.mobile %></li>
-    <li><b>Cell Access:</b> <%= @patient.cell_access %></li>
-    <li><b>Taayi Card Number:</b> <%= (@patient.taayi_card_number.nil?) ? "N/A" : @patient.taayi_card_number %></li>
-    <li><b>Expected Delivery Date:</b> <%= @patient.expected_delivery_date %></li>
-    <li><b>Caste:</b> <%= @patient.caste %></li>
-    <li><b>Education:</b> <%= @patient.education %></li>
-    <li><b>Delivery Place:</b> <%= @patient.delivery_place %></li>
-  </ul>
-</div>
+<ul class="details">
+  <li><b>Husband Name:</b> <%= @patient.husband_name %></li>
+  <li><b>Mother Age:</b> <%= @patient.mother_age %></li>
+  <li><b>Subcenter:</b> <%= link_to @patient.subcenter.name, @patient.subcenter %></li>
+  <li><b>ANM:</b> <%= (@patient.anm.nil?) ? "None" : (link_to @patient.anm.name, @patient.anm) %></li>
+  <li><b>Mobile:</b> <%= @patient.mobile %></li>
+  <li><b>Cell Access:</b> <%= @patient.cell_access %></li>
+  <li><b>Taayi Card Number:</b> <%= (@patient.taayi_card_number.nil?) ? "N/A" : @patient.taayi_card_number %></li>
+  <li><b>Expected Delivery Date:</b> <%= @patient.expected_delivery_date %></li>
+  <li><b>Caste:</b> <%= @patient.caste %></li>
+  <li><b>Education:</b> <%= @patient.education %></li>
+  <li><b>Delivery Place:</b> <%= @patient.delivery_place %></li>
+</ul>
 
 <h3>Latest Visit</h3>
 <% if @visit %>
