@@ -13,6 +13,7 @@ class Phc < ActiveRecord::Base
   has_many :users
   has_many :patients
   has_many :anms
+  has_many :subcenters
 
   validates :name, :presence => true
 

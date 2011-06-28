@@ -5,7 +5,7 @@
   <ul>
     <li><b>Husband Name:</b> <%= @patient.husband_name %></li>
     <li><b>Mother Age:</b> <%= @patient.mother_age %></li>
-    <li><b>Subcenter:</b> <%= @patient.subcenter %></li>
+    <li><b>Subcenter:</b> <%= link_to @patient.subcenter.name, @patient.subcenter %></li>
     <li><b>ANM:</b> <%= (@patient.anm.nil?) ? "None" : (link_to @patient.anm.name, @patient.anm) %></li>
     <li><b>Mobile:</b> <%= @patient.mobile %></li>
     <li><b>Cell Access:</b> <%= @patient.cell_access %></li>

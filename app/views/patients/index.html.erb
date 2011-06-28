@@ -22,7 +22,7 @@
     <% @patients.each do |p| %>
       <tr>
         <td><%= link_to p.name, p %></td>
-        <td><%= p.subcenter %></td>
+        <td><%= link_to p.subcenter.name, p.subcenter %></td>
         <td><%= p.mobile %></td>
         <td><%= (p.taayi_card_number.nil?) ? "N/A" : p.taayi_card_number %></td>
         <td><%= p.caste %></td>

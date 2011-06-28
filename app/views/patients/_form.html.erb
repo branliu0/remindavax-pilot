@@ -3,9 +3,9 @@
     <%= form.input :name %>
     <%= form.input :husband_name %>
     <%= form.input :mother_age %>
-    <%= form.input :subcenter %>
+    <%= form.input :subcenter, :collection => current_user.phc.subcenters %>
     <%= form.input :village %>
-    <%= form.input :anm_id, :as => :select, :collection => current_user.phc.anms %>
+    <%= form.input :anm, :collection => current_user.phc.anms %>
     <%= form.input :mobile %>
     <%= form.input :cell_access, :as => :radio %>
     <%= form.input :taayi_card_number %>

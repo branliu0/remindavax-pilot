@@ -22,11 +22,13 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :husband_name, :mother_age, :subcenter, :village, :anm_id, :mobile, :cell_access,
+  attr_accessible :name, :husband_name, :mother_age, :subcenter_id, :village, :anm_id, :mobile, :cell_access,
     :taayi_card_number, :ec_number, :expected_delivery_date, :caste, :education, :delivery_place
 
   belongs_to :phc
   validates :phc_id, :presence => true
+  belongs_to :subcenter
+  validates :subcenter_id, :presence => true
   belongs_to :anm
   validates :anm_id, :presence => true
   has_many :visits, :dependent => :destroy
@@ -38,7 +40,6 @@ class Patient < ActiveRecord::Base
   validates :name, :presence => true
   # No validation for husband name
   validates :mother_age, :presence => true, :numericality => true
-  # No validation for subcenter
   validates :village, :presence => true
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
@@ -80,7 +81,6 @@ class Patient < ActiveRecord::Base
   # work.
   attr_encrypted :husband_name, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mother_age, :key => APP_CONFIG['encrypt_key']
-  attr_encrypted :subcenter, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :village, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :cell_access, :key => APP_CONFIG['encrypt_key']
