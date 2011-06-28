@@ -1,11 +1,11 @@
 RemindavaxPilot::Application.routes.draw do
-  match 'patients/autocomplete' => 'patients#autocomplete'
+  match '/prepare_reminders', :to => 'patients#prepare_reminders', :via => :get
+  match '/send_reminders', :to => 'patients#send_reminders', :via => :post
 
   resources :patients do
     collection do
+      get 'autocomplete'
       get 'today'
-      get 'prepare_reminders'
-      post 'send_reminders'
     end
     member do
       post 'check_in'

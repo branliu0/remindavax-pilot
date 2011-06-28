@@ -49,7 +49,7 @@
   </tbody>
 </table>
 
-<%= form_tag send_reminders_patients_path, :method => :post do %>
+<%= form_tag send_reminders_path, :method => :post do %>
   <% [@advance_reminders, @reminders, @alerts].flatten.each do |a| %>
     <%= hidden_field_tag "appointments[]", a.id %>
   <% end %>
