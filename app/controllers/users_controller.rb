@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:success] = "Successfully created a new user!"
-      redirect_to '/'
+      redirect_to root_path
     else
       @phcs = Phc.all
       render :new
