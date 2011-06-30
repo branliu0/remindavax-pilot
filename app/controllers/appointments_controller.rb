@@ -9,6 +9,14 @@ class AppointmentsController < ApplicationController
     redirect_to @patient
   end
 
+  def batch_update_dates
+    @appointments = Appointment.find(params[:ids])
+    @appointments.zip(params[:dates]).each do |appt_date|
+      appt_date[0].update_attributes(:date => appt_date[1])
+    end
+    render :nothing => true # All client-side JS
+  end
+
   def destroy
     @appt = Appointment.find_by_id(params[:id])
     @appt.destroy if @appt

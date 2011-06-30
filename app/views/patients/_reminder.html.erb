@@ -4,6 +4,7 @@
   <td><%= reminder.patient.village %></td>
   <td><%= link_to reminder.patient.anm.name, reminder.patient.anm %></td>
   <td><%= reminder.patient.anm.mobile %></td>
-  <td><%= reminder.info %></td>
+  <td><%= reminder.name %></td>
+  <td><%= text_field_tag "appt_#{reminder.id}", reminder.date_str, :datepicker => true, :updateable => true, :appt_id => reminder.id %></td>
   <td><%= reminder.patient.receiving_texts? %></td>
 </tr>

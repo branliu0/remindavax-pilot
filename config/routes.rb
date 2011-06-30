@@ -25,6 +25,8 @@ RemindavaxPilot::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy'
   match '/search', :to => 'patients#search'
 
+  post '/appointments/batch_update_dates'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

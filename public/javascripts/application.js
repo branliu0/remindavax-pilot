@@ -14,7 +14,7 @@ $(function() {
     }
   });
 
-  $('input[datepicker="true"]').datepicker({ dateFormat: "M-dd-yy"});
+  $('input[datepicker="true"]').datepicker({ dateFormat: "dd-mm-yy"});
   $('input[autocomplete="patient"]').autocomplete({
     minLength: 2,
     source: function(req, add) {
@@ -22,6 +22,19 @@ $(function() {
         add(data);
       });
     }
+  });
+
+  $("#batch_update_dates").click(function(e) {
+    var ids = [];
+    var dates = [];
+    $('input[updateable="true"]').each(function(i, elt) {
+      ids.push($(this).attr("appt_id"));
+      dates.push($(this).attr("value"));
+    });
+    $.post('/appointments/batch_update_dates', { ids: ids, dates: dates }, function(data) {
+      $("#flash").empty();
+      $("#flash").append($("<div>").addClass("success").text("Successfully saved changes!"));
+    });
   });
 
   var current_time = new Date();

@@ -8,6 +8,7 @@
       <td>ANM Name</td>
       <td>ANM Mobile</td>
       <td>Appointment</td>
+      <td>Appointment Date</td>
       <td>Receives Texts?</td>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
       <td>ANM Name</td>
       <td>ANM Mobile</td>
       <td>Appointment</td>
+      <td>Appointment Date</td>
       <td>Receives Texts?</td>
     </tr>
   </thead>
@@ -44,6 +46,7 @@
       <td>ANM Name</td>
       <td>ANM Mobile</td>
       <td>Appointment</td>
+      <td>Appointment Date</td>
       <td>Receives Texts?</td>
     </tr>
   </thead>
@@ -52,9 +55,11 @@
   </tbody>
 </table>
 
-<%= form_tag send_reminders_path, :method => :post do %>
+<%= form_tag send_reminders_path, :method => :post, :class => "left" do %>
   <% [@advance_reminders, @reminders, @alerts].flatten.each do |a| %>
     <%= hidden_field_tag "appointments[]", a.id %>
   <% end %>
   <%= submit_tag "Send SMS Reminders", :confirm => "Are you ready to send these SMS now?" %>
 <% end %>
+
+<button id="batch_update_dates" class="right">Save Changes</button>
