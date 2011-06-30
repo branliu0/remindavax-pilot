@@ -41,8 +41,8 @@ class Patient < ActiveRecord::Base
   # No validation for husband name
   validates :mother_age, :presence => true, :numericality => true
   validates :village, :presence => true
-  validates :mobile, :presence => true, :numericality => true
-  validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
+  validates :mobile, :numericality => true, :if => Proc.new { |p| !p.mobile.blank? }
+  validates_length_of :mobile, :is => 10 , :message => "should be 10 digits", :if => Proc.new { |p| !p.mobile.blank? }
   validates :cell_access, :presence => true
   enumerate :cell_access do
     value :name => 'yes'
