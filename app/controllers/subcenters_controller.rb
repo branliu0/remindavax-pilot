@@ -4,12 +4,13 @@ class SubcentersController < ApplicationController
   end
 
   def create
-    @subcenter = Subcenter.new(params[:subcenter])
+    @phc = Phc.find(params[:phc_id])
+    @subcenter = @phc.subcenters.build(params[:subcenter])
     if @subcenter.save
       flash[:success] = "Successfully created a new Subcenter!"
       redirect_to phc_path(params[:phc_id])
     else
-      render :new
+      render 'phcs/show', :id => @phc
     end
   end
 

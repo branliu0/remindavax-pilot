@@ -1,4 +1,4 @@
-<h2>Subcenter <%= @subcenter.name %> in <%= @subcenter.phc.name %></h2>
+<h2>Subcenter <%= @subcenter.name %> <%= "(control)" if @subcenter.control? %> in <%= @subcenter.phc.name %></h2>
 <h4>Patients</h4>
 <ul>
   <% @subcenter.patients.each do |p| %>
