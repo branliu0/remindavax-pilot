@@ -14,7 +14,8 @@ class AppointmentsController < ApplicationController
     @appointments.zip(params[:dates]).each do |appt_date|
       appt_date[0].update_attributes(:date => appt_date[1])
     end
-    render :nothing => true # All client-side JS
+    flash[:success] = "Successfully saved changes!" # TODO: Add errors?
+    render :nothing => true # Client-side JS refreshes
   end
 
   def destroy

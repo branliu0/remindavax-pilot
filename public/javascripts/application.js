@@ -32,8 +32,7 @@ $(function() {
       dates.push($(this).attr("value"));
     });
     $.post('/appointments/batch_update_dates', { ids: ids, dates: dates }, function(data) {
-      $("#flash").empty();
-      $("#flash").append($("<div>").addClass("success").text("Successfully saved changes!"));
+      window.location.reload();
     });
   });
 
