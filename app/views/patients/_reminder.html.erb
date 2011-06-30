@@ -1,6 +1,6 @@
 <tr>
   <td><%= link_to reminder.patient.name, reminder.patient %></td>
-  <td><%= link_to reminder.patient.subcenter.name, reminder.patient.subcenter %></td>
+  <td><%= (reminder.patient.subcenter.nil?) ? "None" : link_to reminder.patient.subcenter.name, reminder.patient.subcenter %></td>
   <td><%= reminder.patient.village %></td>
   <td><%= link_to reminder.patient.anm.name, reminder.patient.anm %></td>
   <td><%= reminder.patient.anm.mobile %></td>
