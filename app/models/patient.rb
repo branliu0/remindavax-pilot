@@ -58,7 +58,6 @@ class Patient < ActiveRecord::Base
     value :name => 'ST'
     value :name => 'Other'
   end
-  validates :education, :presence => true
   enumerate :education do
     value :name => 'Illiterate'
     value :name => 'Literate'
