@@ -6,5 +6,5 @@
   <td><%= reminder.patient.anm.mobile %></td>
   <td><%= reminder.name %></td>
   <td><%= text_field_tag "appt_#{reminder.id}", reminder.date_str, :datepicker => true, :updateable => true, :appt_id => reminder.id %></td>
-  <td><%= reminder.patient.receiving_texts? %></td>
+  <td><%= ! reminder.patient.subcenter.control? %></td>
 </tr>
