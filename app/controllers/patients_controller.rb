@@ -92,7 +92,7 @@ class PatientsController < ApplicationController
   def send_reminders
     appts = Appointment.find(params[:appointments])
     appts.each do |a|
-      send_reminder(a)
+      send_reminder(a) if a.patient.receiving_texts?
     end
     flash[:success] = "Successfully sent #{appts.length} reminders!"
     redirect_to patients_path
