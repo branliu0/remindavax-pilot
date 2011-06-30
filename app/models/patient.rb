@@ -135,7 +135,7 @@ class Patient < ActiveRecord::Base
   end
 
   # Array of [appointment_type_id, time interval from expected delivery date]
-  AUTO_APPOINTMENTS = [[1, -6.months], [2, -3.months], [3, -1.month]]
+  AUTO_APPOINTMENTS = [[1, -6.months], [2, -3.months], [3, -1.month], [4, 0.days], [5, 6.weeks], [6, 10.weeks], [7, 14.weeks], [8, 10.months]]
   def generate_appointments
     AUTO_APPOINTMENTS.each do |a|
       date = Date.parse(expected_delivery_date) + a[1]
