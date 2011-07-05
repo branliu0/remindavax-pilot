@@ -1,11 +1,11 @@
 class PatientsController < ApplicationController
+  before_filter :authorize, :only => [:show, :edit, :update, :destroy, :check_in]
 
   def index
     @patients = current_user.phc.patients.paginate(:page => params[:page])
   end
 
   def show
-    @patient = Patient.find(params[:id])
     @visit = @patient.latest_visit
     @appointments = @patient.scheduled_appointments.dup
     @appointment = @patient.appointments.build
@@ -27,11 +27,9 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    @patient = Patient.find(params[:id])
   end
 
   def update
-    @patient = Patient.find(params[:id])
     if @patient.update_attributes(params[:patient])
       flash[:success] = 'Updated registration!'
       redirect_to @patient
@@ -41,7 +39,6 @@ class PatientsController < ApplicationController
   end
 
   def destroy
-    @patient = Patient.find_by_id(params[:id])
     @patient.destroy if @patient
     flash[:success] = "Successfully deleted registration"
     flash[:success] += " #{@patient.name}" if @patient
@@ -63,7 +60,6 @@ class PatientsController < ApplicationController
   end
 
   def check_in
-    @patient = Patient.find(params[:id])
     if not @patient.checked_in?
       @patient.visits.create!(:date => Date.today, :description => params[:description])
     end
@@ -99,13 +95,21 @@ class PatientsController < ApplicationController
   end
 
   private
-  def get_reminders
-    # Remind delivery appointments 2 weeks in advance
-    @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now.to_date).select do |appt|
-      appt.appointment_type.appointment_type_id == 4
+    def authorize
+      @patient = Patient.find(params[:id])
+      unless @patient && @patient.phc.id == current_user.phc.id
+        flash[:error] = "You do not have access to this patient"
+        redirect_to patients_path
+      end
     end
-    @advance_reminders += current_user.phc.find_appointments_by_date(:date => 3.days.from_now.to_date)
-    @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now.to_date)
-    @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago.to_date)
-  end
+
+    def get_reminders
+      # Remind delivery appointments 2 weeks in advance
+      @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now.to_date).select do |appt|
+        appt.appointment_type.appointment_type_id == 4
+      end
+      @advance_reminders += current_user.phc.find_appointments_by_date(:date => 3.days.from_now.to_date)
+      @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now.to_date)
+      @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago.to_date)
+    end
 end

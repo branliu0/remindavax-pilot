@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
   include SmsHelper
 
   before_filter :set_timezone
-  before_filter :authenticate
+  before_filter :logged_in_authenticate
 
   private
-  def authenticate
+  def logged_in_authenticate
     if not logged_in?
       flash[:error] = "Please log in to access the page"
       redirect_to login_path

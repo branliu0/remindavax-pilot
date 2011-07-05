@@ -1,4 +1,6 @@
 class SubcentersController < ApplicationController
+  before_filter :admin_authenticate
+
   def new
     @subcenter = Subcenter.new
   end

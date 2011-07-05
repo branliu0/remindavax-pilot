@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  before_filter :authorize, :only => :destroy
+
   def create
     # TODO: Give some sort of feedback when the save fails
     @patient = Patient.find(params[:id])
@@ -19,9 +21,21 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    @appt = Appointment.find_by_id(params[:id])
     @appt.destroy if @appt
     flash[:success] = "Successfully deleted appointment"
     redirect_to @appt.patient
   end
+
+  private
+    def authorize
+      @appt = Appointment.find_by_id(params[:id])
+      unless @appt && @appt.patient.phc.id == current_user.phc.id
+        flash[:error] = "You do not have access to this appoinment"
+        if @appt
+          redirect_to @appt.patient
+        else
+          redirect_to patients_path
+        end
+      end
+    end
 end

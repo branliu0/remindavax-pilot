@@ -1,10 +1,11 @@
 class AnmsController < ApplicationController
+  before_filter :authorize, :only => [:show, :edit, :update, :destroy]
+
   def index
     @anms = current_user.phc.anms
   end
 
   def show
-    @anm = Anm.find(params[:id])
   end
 
   def new
@@ -22,11 +23,9 @@ class AnmsController < ApplicationController
   end
 
   def edit
-    @anm = Anm.find(params[:id])
   end
 
   def update
-    @anm = Anm.find(params[:id])
     if @anm.update_attributes(params[:anm])
       flash[:success] = "Updated ANM!"
       redirect_to anms_path
@@ -36,10 +35,17 @@ class AnmsController < ApplicationController
   end
 
   def destroy
-    @anm = Anm.find_by_id(params[:id])
     @anm.destroy if @anm
     flash[:success] = "Successfully deleted #{@anm.name}"
     redirect_to anms_path
   end
 
+  private
+    def authorize
+      @anm = Anm.find_by_id(params[:id])
+      unless @anm && @anm.phc.id == current_user.phc.id
+        flash[:error] = "You do not have access to this ANM"
+        redirect_to anms_path
+      end
+    end
 end
