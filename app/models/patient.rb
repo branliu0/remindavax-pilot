@@ -48,7 +48,7 @@ class Patient < ActiveRecord::Base
     value :name => 'yes'
     value :name => 'no'
   end
-  validates :taayi_card_number, :numericality => true, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
+  validates :taayi_card_number, :uniqueness => true, :numericality => true, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates_length_of :taayi_card_number, :is => 7, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates :ec_number, :presence => true, :numericality => true, :length => { :within => 2..3 }
   validates :expected_delivery_date, :presence => true
