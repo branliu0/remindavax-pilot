@@ -8,6 +8,7 @@
     <%= form.input :anm, :collection => current_user.phc.anms %>
     <%= form.input :mobile %>
     <%= form.input :cell_access, :as => :radio %>
+    <%= form.semantic_errors :encrypted_taayi_card_number %>
     <%= form.input :taayi_card_number %>
     <%= form.input :ec_number, :label => 'EC Number' %>
     <%= form.input :expected_delivery_date, :as => :string, :input_html => { :datepicker => "true" } %>
