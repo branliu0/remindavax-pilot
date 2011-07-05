@@ -81,8 +81,8 @@ class PatientsController < ApplicationController
   end
 
   def today
-    @appts_today = current_user.phc.find_appointments_by_date(:date => Date.today)
-    @overdue_appts = current_user.phc.find_appointments_by_date(:before => 2.days.ago)
+    @appts_today = current_user.phc.find_appointments_by_date(:after => 2.days.ago.to_date, :before => Date.tomorrow)
+    @overdue_appts = current_user.phc.find_appointments_by_date(:before => 1.day.ago.to_date)
   end
 
   def prepare_reminders

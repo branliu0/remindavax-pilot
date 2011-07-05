@@ -27,9 +27,11 @@ class Phc < ActiveRecord::Base
       .where("patients.phc_id = ?", id)
     if options[:date]
       query = query.where("appointments.date = ?", options[:date])
-    elsif options[:after]
+    end
+    if options[:after]
       query = query.where("appointments.date > ?", options[:after])
-    elsif options[:before]
+    end
+    if options[:before]
       query = query.where("appointments.date < ?", options[:before])
     end
   end
