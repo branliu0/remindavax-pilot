@@ -76,6 +76,7 @@ form#search_form input {
 form#search_form input[type="text"] {
   font-size: 30px;
   padding: 5px;
+  width: 500px;
 }
 
 form#search_form input[type="submit"] {
