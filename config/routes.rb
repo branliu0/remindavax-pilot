@@ -27,6 +27,8 @@ RemindavaxPilot::Application.routes.draw do
 
   post '/appointments/batch_update_dates'
 
+  get '/cron/anm_sms'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -77,7 +77,9 @@ class PatientsController < ApplicationController
   end
 
   def today
+    # Yesterday and today
     @appts_today = current_user.phc.find_appointments_by_date(:after => 2.days.ago.to_date, :before => Date.tomorrow)
+    # More than 2 days ago
     @overdue_appts = current_user.phc.find_appointments_by_date(:before => 1.day.ago.to_date)
   end
 

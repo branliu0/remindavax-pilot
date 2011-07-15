@@ -5,8 +5,6 @@ module SmsHelper
     appointment.sms.create!(:message => msg)
   end
 
-  private
-
   # TODO: Abstract this to a config file? Right now this seems fine.
   BASE_SEND_URL = "http://bulk.smsinfy.com/web2sms.php?username=alex123&password=alex123&sender=KARUNA"
   def send_sms(mobile, message)
