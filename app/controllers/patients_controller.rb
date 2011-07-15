@@ -46,15 +46,25 @@ class PatientsController < ApplicationController
   end
 
   def search
-    if params[:q]
-      @patients = Patient.search(current_user.phc, params[:q]).paginate(:page => params[:page])
-      if @patients.any?
-        render :index
-      else
-        @patient = Patient.new(:name => params[:q])
-        render :new
+    if params[:q] # A query was actually entered
+      if params[:q] === /\d{7}/ # Entered an Taayi Card Number
+        @patient = Patient.find_by_taayi_card_number(params[:q])
+        if @patient
+          redirect_to @patient
+        else
+          @patient = Patient.new(:taayi_card_number => params[:q])
+          render :new
+        end
+      else # Entered a name
+        @patients = Patient.search(current_user.phc, params[:q]).paginate(:page => params[:page])
+        if @patients.any?
+          render :index
+        else
+          @patient = Patient.new(:name => params[:q])
+          render :new
+        end
       end
-    else
+    else # Just rerender the search page if nothing was entered
       render :search
     end
   end
