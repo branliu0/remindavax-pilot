@@ -47,7 +47,7 @@ class PatientsController < ApplicationController
 
   def search
     if params[:q] # A query was actually entered
-      if params[:q] === /\d{7}/ # Entered an Taayi Card Number
+      if /\A\d{7}\Z/ === params[:q] # Entered an Taayi Card Number (7 digits)
         @patient = Patient.find_by_taayi_card_number(params[:q])
         if @patient
           redirect_to @patient
