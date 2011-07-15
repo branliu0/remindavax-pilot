@@ -34,5 +34,6 @@ class Phc < ActiveRecord::Base
     if options[:before]
       query = query.where("appointments.date < ?", options[:before])
     end
+    query
   end
 end
