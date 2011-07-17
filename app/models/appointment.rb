@@ -41,7 +41,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def sms_message
-    msg = "+#{name}+     #{message}"
+    msg = "#{patient.name}: +#{name}+     #{message}"
     msg = "!!IMPORTANT!! " + msg if date < Date.today # Add a warning if this appt is overdue
     msg
   end
