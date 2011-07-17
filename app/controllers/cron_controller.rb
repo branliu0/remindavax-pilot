@@ -7,7 +7,7 @@ class CronController < ApplicationController
   # that are over 3 days overdue are also sent.
   def anm_sms
     text = ""
-    current_user.phc.anms.each do |anm|
+    Anm.all.each do |anm|
       msg1, msg2 = generate_anm_message(anm)
       send_sms(anm.mobile, msg1)
       send_sms(anm.mobile, msg2)
