@@ -52,7 +52,7 @@ class Patient < ActiveRecord::Base
   validates_length_of :taayi_card_number, :is => 7, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates_uniqueness_of :encrypted_taayi_card_number, :if => Proc.new{ |p| !p.taayi_card_number.blank? }
   validates :ec_number, :presence => true, :numericality => true, :length => { :within => 2..3 }
-  validates :expected_delivery_date, :presence => true
+  validates :expected_delivery_date, :presence => true, :format => { :with => /\A\d\d\-\d\d\-\d\d\d\d\Z/, :message => "Expected delivery date must be of the form DD-MM-YYYY" }
   validates :caste, :presence => true
   enumerate :caste do
     value :name => 'SC'
