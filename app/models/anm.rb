@@ -22,7 +22,7 @@ class Anm < ActiveRecord::Base
       messages += "#{msg}\n"
     end
 
-    logger.info "ANM messages sent at #{Date.now}"
+    logger.info "ANM messages sent at #{Time.now}"
     logger.info messages
     messages
   end
