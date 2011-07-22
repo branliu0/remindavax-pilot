@@ -1,4 +1,6 @@
 class Anm < ActiveRecord::Base
+  include SmsHelper
+
   attr_accessible :name, :mobile
 
   belongs_to :phc
@@ -8,6 +10,22 @@ class Anm < ActiveRecord::Base
   validates :name, :presence => true
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10, :message => "should be 10 digits"
+
+  # This method should be called by a cron routine daily at 5:30AM IST, or
+  # 12PM UTC/GMT, or 8PM EST
+  def self.send_daily_reminders(send?=true)
+    messages = ""
+    all.each do |anm|
+      msg = anm.sms_message
+      send_sms(anm.mobile, msg) if send?
+
+      messages += "#{msg}\n"
+    end
+
+    logger.info "ANM messages sent at #{Date.now}"
+    logger.info messages
+    messages
+  end
 
   def sms_message
     msg = "#{name}- Today: "

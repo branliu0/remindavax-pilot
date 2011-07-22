@@ -12,6 +12,7 @@ gem 'passenger'
 gem 'active_enum', '~> 0.9.1'
 gem 'curb'
 gem 'log4r'
+gem 'whenever'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
