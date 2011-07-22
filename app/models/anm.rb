@@ -9,6 +9,24 @@ class Anm < ActiveRecord::Base
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10, :message => "should be 10 digits"
 
+  def sms_message
+    msg = "#{name}- Today: "
+    today = find_appointments_by_date(:date => Date.today).map do |a|
+      p = a.patient
+      "#{p.name} for #{a.name}, #{p.taayi_card_number}"
+    end.join("; ")
+    msg += (today.empty?) ? "None" : today
+
+    msg += " -- Overdue: "
+    # More than 3 days ago
+    overdue = find_appointments_by_date(:before => 2.days.ago.to_date).map do |a|
+      p = a.patient
+      "#{p.name} for #{a.name}, #{p.taayi_card_number}"
+    end.join("; ")
+    msg += (overdue.empty?) ? "None" : overdue
+    msg
+  end
+
   def patients_due_today
     patients.select(&:appointment_today?)
   end

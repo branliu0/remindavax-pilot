@@ -8,14 +8,15 @@ class CronController < ApplicationController
   def anm_sms
     text = ""
     Anm.all.each do |anm|
-      msg1, msg2 = generate_anm_message(anm)
-      send_sms(anm.mobile, msg1)
-      send_sms(anm.mobile, msg2)
+      msg = anm.sms_message
+      send_sms(anm.mobile, msg)
 
-      text += "#{anm.name}: messsage1 = #{msg1}, message2 = #{msg2}"
+      text += "#{msg}\n"
     end
 
-    render :text => text
+    logger.info "ANM messages sent at #{Date.now}"
+    logger.info text
+    render :inline => text.gsub!(/\n/, "<br />")
   end
 
   private
