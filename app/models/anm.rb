@@ -13,11 +13,11 @@ class Anm < ActiveRecord::Base
 
   # This method should be called by a cron routine daily at 5:30AM IST, or
   # 12PM UTC/GMT, or 8PM EST
-  def self.send_daily_reminders(send?=true)
+  def self.send_daily_reminders(send = true)
     messages = ""
     all.each do |anm|
       msg = anm.sms_message
-      send_sms(anm.mobile, msg) if send?
+      send_sms(anm.mobile, msg) if send
 
       messages += "#{msg}\n"
     end
