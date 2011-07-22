@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20110630040231) do
     t.string   "encrypted_husband_name"
     t.string   "encrypted_caste"
     t.string   "encrypted_taayi_card_number"
-    t.string   "encrypted_subcenter"
     t.string   "encrypted_mother_age"
     t.string   "encrypted_education"
     t.string   "encrypted_delivery_place"
