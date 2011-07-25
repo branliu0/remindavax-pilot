@@ -26,11 +26,11 @@ class Patient < ActiveRecord::Base
     :taayi_card_number, :ec_number, :expected_delivery_date, :caste, :education, :delivery_place
 
   belongs_to :phc
-  validates :phc_id, :presence => true
+  validates :phc, :presence => true
   belongs_to :subcenter
-  validates :subcenter_id, :presence => true
+  validates :subcenter, :presence => true
   belongs_to :anm
-  validates :anm_id, :presence => true
+  validates :anm, :presence => true
   has_many :visits, :dependent => :destroy
   has_many :appointments, :dependent => :destroy
   has_many :sms

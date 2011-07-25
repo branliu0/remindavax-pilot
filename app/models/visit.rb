@@ -20,6 +20,6 @@ class Visit < ActiveRecord::Base
 
   default_scope :order => "date ASC"
 
-  validates :patient_id, :presence => true
+  validates :patient, :presence => true
   validates :date, :presence => true # , :date_format => true
 end

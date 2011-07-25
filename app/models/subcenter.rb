@@ -5,5 +5,5 @@ class Subcenter < ActiveRecord::Base
   has_many :patients
 
   validates :name, :presence => true
-  validates :phc_id, :presence => true
+  validates :phc, :presence => true
 end

@@ -4,7 +4,7 @@ class Anm < ActiveRecord::Base
   attr_accessible :name, :mobile
 
   belongs_to :phc
-  validates :phc_id, :presence => true
+  validates :phc, :presence => true
   has_many :patients
 
   validates :name, :presence => true

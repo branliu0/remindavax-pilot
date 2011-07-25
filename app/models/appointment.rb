@@ -20,8 +20,8 @@ class Appointment < ActiveRecord::Base
 
   default_scope :order => "date ASC"
 
-  validates :patient_id, :presence => true
-  validates :appointment_type_id, :presence => true
+  validates :patient, :presence => true
+  validates :appointment_type, :presence => true
   validates :date, :presence => true
 
   def name
