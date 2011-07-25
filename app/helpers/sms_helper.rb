@@ -11,4 +11,11 @@ module SmsHelper
     url = BASE_SEND_URL + "&to=#{mobile}&message=#{CGI::escape(message)}"
     curl = Curl::Easy.http_get(url)
   end
+
+  # Make a class method copy of the method so that other class methods can
+  # call this
+  def self.send_sms(mobile, message)
+    url = BASE_SEND_URL + "&to=#{mobile}&message=#{CGI::escape(message)}"
+    curl = Curl::Easy.http_get(url)
+  end
 end

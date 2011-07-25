@@ -1,6 +1,4 @@
 class Anm < ActiveRecord::Base
-  include SmsHelper
-
   attr_accessible :name, :mobile
 
   belongs_to :phc
@@ -17,7 +15,7 @@ class Anm < ActiveRecord::Base
     messages = ""
     all.each do |anm|
       msg = anm.sms_message
-      send_sms(anm.mobile, msg) if send
+      SmsHelper::send_sms(anm.mobile, msg) if send
 
       messages += "#{msg}\n"
     end
