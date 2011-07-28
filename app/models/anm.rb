@@ -50,7 +50,7 @@ class Anm < ActiveRecord::Base
   def find_appointments_by_date(options)
     query = Appointment.includes(:patient).joins(:patient)
       .where("appointments.date > (SELECT MAX(date) FROM visits WHERE visits.patient_id = patients.id) OR (SELECT COUNT(1) FROM visits WHERE visits.patient_id = patients.id) = 0") # Ensure that 1) The latest visit was before the appointment OR 2) There have been no visits yet
-      .where("patients.phc_id = ?", id)
+      .where("patients.phc_id = ? AND patients.anm_id = ?", phc.id, id)
     if options[:date]
       query = query.where("appointments.date = ?", options[:date])
     end
