@@ -2,7 +2,7 @@ class PatientsController < ApplicationController
   before_filter :authorize, :only => [:show, :edit, :update, :destroy, :check_in]
 
   def index
-    @patients = current_user.phc.patients.paginate(:page => params[:page])
+    @patients = current_user.phc.patients.order("name ASC").paginate(:page => params[:page])
   end
 
   def show

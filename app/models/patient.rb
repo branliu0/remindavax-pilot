@@ -35,8 +35,6 @@ class Patient < ActiveRecord::Base
   has_many :appointments, :dependent => :destroy
   has_many :sms
 
-  default_scope :order => 'name ASC'
-
   validates :name, :presence => true
   # No validation for husband name
   validates :mother_age, :presence => true, :numericality => true
