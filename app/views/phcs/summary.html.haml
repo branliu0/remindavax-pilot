@@ -1,0 +1,16 @@
+%h2 Week by Week Statistics
+
+%table
+  %thead
+    %tr
+      %th Week
+      %th New Patients
+      %th New Appointments
+      %th Visits
+  %tbody
+    - @creation_stats.each do |row|
+      %tr
+        %td= "#{row[:week_start].strftime} -- #{row[:week_end].strftime}"
+        %td= row[:patient_count] || 0
+        %td= row[:appointment_count] || 0
+        %td= row[:visit_count] || 0

@@ -16,6 +16,9 @@ RemindavaxPilot::Application.routes.draw do
   resources :sessions
   resources :phcs do
     resources :subcenters, :only => [:new, :create, :index]
+    collection do
+      get 'summary'
+    end
   end
   resources :anms
   resources :subcenters, :only => [:show, :destroy]
