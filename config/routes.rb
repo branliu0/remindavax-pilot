@@ -32,6 +32,8 @@ RemindavaxPilot::Application.routes.draw do
 
   get '/cron/anm_sms'
 
+  match '/summary', :to => 'phcs#summary'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
