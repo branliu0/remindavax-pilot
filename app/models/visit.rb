@@ -11,8 +11,6 @@
 #  updated_at  :datetime
 #
 
-require "#{::Rails.root.to_s}/lib/validators/DateFormatValidator"
-
 class Visit < ActiveRecord::Base
   attr_accessible :date
 
@@ -21,5 +19,5 @@ class Visit < ActiveRecord::Base
   default_scope :order => "date ASC"
 
   validates :patient, :presence => true
-  validates :date, :presence => true # , :date_format => true
+  validates :date, :presence => true
 end
