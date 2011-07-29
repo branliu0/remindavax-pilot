@@ -7,7 +7,7 @@ class PatientsController < ApplicationController
 
   def show
     @visit = @patient.latest_visit
-    @appointments = @patient.scheduled_appointments.dup
+    @appointments = @patient.scheduled_appointments.order("date ASC").dup
     @appointment = @patient.appointments.build
   end
 
@@ -56,7 +56,7 @@ class PatientsController < ApplicationController
           render :new
         end
       else # Entered a name
-        @patients = Patient.search(current_user.phc, params[:q]).paginate(:page => params[:page])
+        @patients = Patient.search(current_user.phc, params[:q]).order("name ASC").paginate(:page => params[:page])
         if @patients.any?
           render :index
         else
@@ -80,7 +80,7 @@ class PatientsController < ApplicationController
   end
 
   def autocomplete
-    @patients = Patient.search(current_user.phc, params[:term]).map(&:name)
+    @patients = Patient.search(current_user.phc, params[:term]).order("name ASC").map(&:name)
     respond_to do |format|
       format.json { render :json => @patients }
     end
@@ -88,9 +88,13 @@ class PatientsController < ApplicationController
 
   def today
     # Yesterday and today
-    @appts_today = current_user.phc.find_appointments_by_date(:after => 2.days.ago.to_date, :before => Date.tomorrow)
+    @appts_today = current_user.phc
+      .find_appointments_by_date(:after => 2.days.ago.to_date, :before => Date.tomorrow)
+      .order("date ASC")
     # More than 2 days ago
-    @overdue_appts = current_user.phc.find_appointments_by_date(:before => 1.day.ago.to_date)
+    @overdue_appts = current_user.phc
+      .find_appointments_by_date(:before => 1.day.ago.to_date)
+      .order("date ASC")
   end
 
   def prepare_reminders
@@ -117,11 +121,11 @@ class PatientsController < ApplicationController
 
     def get_reminders
       # Remind delivery appointments 2 weeks in advance
-      @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now.to_date).select do |appt|
+      @advance_reminders = current_user.phc.find_appointments_by_date(:date => 2.weeks.from_now.to_date).order("date ASC").select do |appt|
         appt.appointment_type.appointment_type_id == 4
       end
-      @advance_reminders += current_user.phc.find_appointments_by_date(:date => 3.days.from_now.to_date)
-      @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now.to_date)
-      @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago.to_date)
+      @advance_reminders += current_user.phc.find_appointments_by_date(:date => 3.days.from_now.to_date).order("date ASC")
+      @reminders = current_user.phc.find_appointments_by_date(:date => 1.day.from_now.to_date).order("date ASC")
+      @alerts = current_user.phc.find_appointments_by_date(:before => 2.days.ago.to_date).order("date ASC")
     end
 end

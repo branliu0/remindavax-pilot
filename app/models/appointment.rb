@@ -18,8 +18,6 @@ class Appointment < ActiveRecord::Base
   belongs_to :appointment_type, :primary_key => :appointment_type_id
   has_many :sms, :class_name => "Sms", :dependent => :destroy
 
-  default_scope :order => "date ASC"
-
   validates :patient, :presence => true
   validates :appointment_type, :presence => true
   validates :date, :presence => true
