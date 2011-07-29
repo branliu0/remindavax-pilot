@@ -13,11 +13,13 @@ gem 'active_enum', '~> 0.9.1'
 gem 'curb'
 gem 'log4r'
 gem 'whenever'
+gem 'haml'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
   gem 'annotate-models'
   gem 'faker'
+  gem 'ruby-debug19'
 end
 
 group :test do
