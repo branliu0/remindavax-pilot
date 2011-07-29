@@ -16,8 +16,6 @@ class Visit < ActiveRecord::Base
 
   belongs_to :patient
 
-  default_scope :order => "date ASC"
-
   validates :patient, :presence => true
   validates :date, :presence => true
 end
