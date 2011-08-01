@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-# This corresponds to 5:30AM IST
-every :day, :at => "8pm" do
+# This corresponds to 7:30AM IST
+every :day, :at => "10pm" do
   runner "Anm.send_daily_reminders"
 end

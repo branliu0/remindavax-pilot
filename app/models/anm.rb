@@ -9,8 +9,8 @@ class Anm < ActiveRecord::Base
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10, :message => "should be 10 digits"
 
-  # This method should be called by a cron routine daily at 5:30AM IST, or
-  # 12PM UTC/GMT, or 8PM EST
+  # This method should be called by a cron routine daily at 7:30AM IST, or
+  # 2PM UTC/GMT, or 10PM EST
   def self.send_daily_reminders(send = true)
     messages = ""
     all.each do |anm|
