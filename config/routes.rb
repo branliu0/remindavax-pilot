@@ -21,6 +21,7 @@ RemindavaxPilot::Application.routes.draw do
     end
   end
   resources :anms
+  resources :ashas
   resources :subcenters, :only => [:show, :destroy]
 
   root :to => redirect('/patients/today')

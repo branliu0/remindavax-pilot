@@ -1,0 +1,12 @@
+<h1><%= @asha.name %></h1>
+
+<ul>
+  <li><b>Mobile:</b> <%= @asha.mobile %></li>
+</ul>
+
+<h3>Patients</h3>
+<ul>
+  <% @asha.patients.each do |p| %>
+    <li><%= link_to p.name, p %></li>
+  <% end %>
+</ul>

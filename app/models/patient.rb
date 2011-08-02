@@ -25,7 +25,7 @@
 #
 
 class Patient < ActiveRecord::Base
-  attr_accessible :name, :husband_name, :mother_age, :subcenter_id, :village, :anm_id, :mobile, :cell_access,
+  attr_accessible :name, :husband_name, :mother_age, :subcenter_id, :village, :anm_id, :asha_id :mobile, :cell_access,
     :taayi_card_number, :ec_number, :expected_delivery_date, :caste, :education, :delivery_place
 
   belongs_to :phc
@@ -34,6 +34,8 @@ class Patient < ActiveRecord::Base
   validates :subcenter, :presence => true
   belongs_to :anm
   validates :anm, :presence => true
+  belongs_to :asha
+  validates :asha
   has_many :visits, :dependent => :destroy
   has_many :appointments, :dependent => :destroy
   has_many :sms

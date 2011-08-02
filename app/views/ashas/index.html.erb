@@ -1,0 +1,22 @@
+<h2>ASHAs</h2>
+
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Mobile</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ashas.each do |asha| %>
+      <tr>
+        <td><%= link_to asha.name, asha %></td>
+        <td><%= asha.mobile %></td>
+        <td><%= link_to "Edit", edit_asha_path(asha) %></td>
+        <td><%= link_to "Delete", asha, :method => :delete, :confirm => "Are you sure you want to delete this ASHAk?" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

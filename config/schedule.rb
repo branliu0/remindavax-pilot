@@ -22,4 +22,5 @@
 # This corresponds to 7:30AM IST
 every :day, :at => "10pm" do
   runner "Anm.send_daily_reminders"
+  runner "Asha.send_daily_reminders"
 end
