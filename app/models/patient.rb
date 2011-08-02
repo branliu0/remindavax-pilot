@@ -35,7 +35,7 @@ class Patient < ActiveRecord::Base
   belongs_to :anm
   validates :anm, :presence => true
   belongs_to :asha
-  validates :asha
+  validates :asha, :presence => true
   has_many :visits, :dependent => :destroy
   has_many :appointments, :dependent => :destroy
   has_many :sms
