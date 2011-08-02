@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20110630040231
+#
+# Table name: anms
+#
+#  id         :integer(4)      not null, primary key
+#  name       :string(255)
+#  mobile     :string(255)
+#  phc_id     :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Anm < ActiveRecord::Base
   attr_accessible :name, :mobile
 

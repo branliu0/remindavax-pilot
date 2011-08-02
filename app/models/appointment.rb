@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20110614044818
+# Schema version: 20110630040231
 #
 # Table name: appointments
 #
-#  id                  :integer         not null, primary key
-#  patient_id          :integer
+#  id                  :integer(4)      not null, primary key
+#  patient_id          :integer(4)
 #  date                :date
 #  created_at          :datetime
 #  updated_at          :datetime
-#  appointment_type_id :integer
+#  appointment_type_id :integer(4)
 #
 
 class Appointment < ActiveRecord::Base

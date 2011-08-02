@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20110607050222
+# Schema version: 20110630040231
 #
 # Table name: phcs
 #
-#  id         :integer         not null, primary key
+#  id         :integer(4)      not null, primary key
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
