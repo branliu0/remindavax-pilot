@@ -1,0 +1,17 @@
+%h2 PHCs
+%table
+  %thead
+    %tr
+      %th Name
+      %th Number of Subcenters
+      %th Number of Patients
+      %th Number of ANMs
+      %th Number of ASHAs
+  %tbody
+    - @phcs.each do |phc|
+      %tr
+        %td= link_to phc.name, phc
+        %td= phc.subcenters.count
+        %td= phc.patients.count
+        %td= phc.anms.count
+        %td= phc.ashas.count
