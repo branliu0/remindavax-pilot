@@ -19,8 +19,7 @@ class Asha < ActiveRecord::Base
   has_many :patients
 
   validates :name, :presence => true
-  validates :mobile, :presence => true, :numericality => true
-  validates_length_of :mobile, :is => 10, :message => "should be 10 digits"
+  validates :mobile, :numericality => true, :length => { :is => 10, :message => "should be 10 digits"}, :allow_blank => true
 
   # This method should be called by a cron routine daily at 7:30AM IST, or
   # 2PM UTC/GMT, or 10PM EST
