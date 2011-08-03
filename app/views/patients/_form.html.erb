@@ -3,10 +3,10 @@
     <%= form.input :name %>
     <%= form.input :husband_name %>
     <%= form.input :mother_age %>
-    <%= form.input :subcenter, :collection => current_user.phc.subcenters %>
+    <%= form.input :subcenter, :collection => current_user.phc.subcenters.order("name ASC") %>
     <%= form.input :village %>
-    <%= form.input :anm, :collection => current_user.phc.anms %>
-    <%= form.input :asha, :collection => current_user.phc.ashas %>
+    <%= form.input :anm, :collection => current_user.phc.anms.order("name ASC") %>
+    <%= form.input :asha, :collection => current_user.phc.ashas.order("name ASC") %>
     <%= form.input :mobile %>
     <%= form.input :cell_access, :as => :radio %>
     <%= form.semantic_errors :encrypted_taayi_card_number %>
