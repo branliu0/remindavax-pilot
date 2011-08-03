@@ -12,7 +12,8 @@
 #
 
 class Anm < ActiveRecord::Base
-  attr_accessible :name, :mobile
+  attr_accessible :name, :mobile, :replace, :replaced_anm_id
+  attr_accessor :replace, :replaced_anm_id #Used for migrating patients from old anms upon creation
 
   belongs_to :phc
   validates :phc, :presence => true
@@ -21,6 +22,14 @@ class Anm < ActiveRecord::Base
   validates :name, :presence => true
   validates :mobile, :presence => true, :numericality => true
   validates_length_of :mobile, :is => 10, :message => "should be 10 digits"
+  # validates :replaced_anm, :presence => { :if => Proc.new { |a| [true, '1'].include?(a.replace) }, :message => "You must select an ANM to replace!" }
+  validates_each :replaced_anm_id do |record, attr, value|
+    if [true, '1'].include?(record.replace) && find_by_id(value).nil?
+      record.errors.add attr, "You must select a valid ANM to replace!"
+    end
+  end
+
+  after_create :replace_anm
 
   # This method should be called by a cron routine daily at 7:30AM IST, or
   # 2PM UTC/GMT, or 10PM EST
@@ -75,4 +84,13 @@ class Anm < ActiveRecord::Base
     end
     query
   end
+
+  private
+    def replace_anm
+      if [true, '1'].include?(replace)
+        Anm.find_by_id(replaced_anm_id).patients.each do |p|
+          p.update_attribute(:anm_id, id)
+        end
+      end
+    end
 end

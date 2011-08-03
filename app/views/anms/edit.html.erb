@@ -1,2 +1,10 @@
 <h2>Edit ANM</h2>
-<%= render :partial => 'form' %>
+<%= semantic_form_for @anm do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name %>
+    <%= form.input :mobile %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button %>
+  <% end %>
+<% end %>

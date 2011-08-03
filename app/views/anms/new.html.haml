@@ -1,0 +1,10 @@
+%h2 New ANM
+= semantic_form_for @anm do |form|
+  = form.inputs do
+    = form.input :name
+    = form.input :mobile
+  = form.inputs :name => "Replace an old ANM" do
+    = form.input :replace, :as => :boolean
+    = form.input :replaced_anm_id, :as => :select, :collection => current_user.phc.anms.select(&:persisted?), :label => "ANM to replace"
+  = form.buttons do
+    = form.commit_button

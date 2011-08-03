@@ -36,6 +36,6 @@ $(function() {
     });
   });
 
-  var current_time = new Date();
-  $.cookie('time_zone', current_time.getTimezoneOffset());
+  // var current_time = new Date();
+  // $.cookie('time_zone', current_time.getTimezoneOffset());
 });
