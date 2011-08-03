@@ -11,9 +11,9 @@
   <li><b>Cell Access:</b> <%= @patient.cell_access %></li>
   <li><b>Taayi Card Number:</b> <%= (@patient.taayi_card_number.nil?) ? "N/A" : @patient.taayi_card_number %></li>
   <li><b>Expected Delivery Date:</b> <%= @patient.expected_delivery_date %></li>
-  <li><b>Caste:</b> <%= @patient.caste %></li>
-  <li><b>Education:</b> <%= @patient.education %></li>
-  <li><b>Delivery Place:</b> <%= @patient.delivery_place %></li>
+  <li><b>Caste:</b> <%= Patient::Caste[@patient.caste.to_i] %></li>
+  <li><b>Education:</b> <%= Patient::Education[@patient.education.to_i] %></li>
+  <li><b>Delivery Place:</b> <%= Patient::DeliveryPlace[@patient.delivery_place.to_i] %></li>
   <li><b>Receives Texts: </b> <%= @patient.receiving_texts? %></li>
 </ul>
 

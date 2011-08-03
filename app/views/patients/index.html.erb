@@ -25,7 +25,7 @@
         <td><%= (p.subcenter.nil?) ? "None" : (link_to p.subcenter.name, p.subcenter) %></td>
         <td><%= p.mobile %></td>
         <td><%= (p.taayi_card_number.nil?) ? "N/A" : p.taayi_card_number %></td>
-        <td><%= p.caste %></td>
+        <td><%= Patient::Caste[p.caste.to_i] %></td>
         <td><%= (p.next_appointment.nil?) ? "None" : p.next_appointment.date %></td>
         <td><%= (p.latest_visit.nil?) ? "None" : p.latest_visit.date %></td>
         <td><%= link_to "Edit", edit_patient_path(p) %></td>

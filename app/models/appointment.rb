@@ -27,7 +27,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def message
-    appointment_type.message.gsub(/%date%/, date_str).gsub(/%delivery_place%/, patient.delivery_place || "Undefined")
+    appointment_type.message.gsub(/%date%/, date_str).gsub(/%delivery_place%/, Patient::DeliveryPlace[patient.delivery_place.to_i] || "Undefined")
   end
 
   def date_str
