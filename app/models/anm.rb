@@ -55,7 +55,7 @@ class Anm < ActiveRecord::Base
     end.join("; ")
     msg += (today.empty?) ? "None" : today
 
-    msg += " -- Overdue: "
+    msg += " -- Late: "
     # More than 3 days ago
     overdue = find_appointments_by_date(:before => 2.days.ago.to_date).map do |a|
       p = a.patient
