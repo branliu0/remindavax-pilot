@@ -43,4 +43,12 @@ class Appointment < ActiveRecord::Base
     msg = "!!IMPORTANT!! " + msg if date < Date.today # Add a warning if this appt is overdue
     msg
   end
+
+  def self.creation_stats_by_week(phc_id)
+    joins(:patient)
+      .select("COUNT(1) as count, YEARWEEK(appointments.created_at, 1) as yrwk, YEAR(appointments.created_at) as year, WEEK(appointments.created_at, 1) as week")
+      .where("patients.phc_id = ?", phc_id)
+      .group("yrwk")
+      .order("yrwk DESC")
+  end
 end

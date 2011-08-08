@@ -18,4 +18,12 @@ class Visit < ActiveRecord::Base
 
   validates :patient, :presence => true
   validates :date, :presence => true
+
+  def self.creation_stats_by_week(phc_id)
+    joins(:patient)
+      .select("COUNT(1) as count, YEARWEEK(visits.created_at, 1) as yrwk, YEAR(visits.created_at) as year, WEEK(visits.created_at, 1) as week")
+      .where("patients.phc_id = ?", phc_id)
+      .group("yrwk")
+      .order("yrwk DESC")
+  end
 end

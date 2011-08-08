@@ -100,6 +100,12 @@ class Patient < ActiveRecord::Base
     where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
   end
 
+  def self.creation_stats_by_week(phc_id)
+    select("COUNT(1) as count, YEARWEEK(created_at, 1) as yrwk, YEAR(created_at) as year, WEEK(created_at, 1) as week")
+      .group("yrwk")
+      .order("yrwk DESC")
+  end
+
   def checked_in?
     latest_visit && latest_visit.date == Date.today
   end
