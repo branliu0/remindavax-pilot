@@ -17,7 +17,7 @@ gem 'haml'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
-  gem 'annotate-models'
+  gem 'annotate'
   gem 'faker'
   gem 'ruby-debug19'
 end

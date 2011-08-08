@@ -30,7 +30,7 @@ GEM
       activemodel (= 3.0.7)
       activesupport (= 3.0.7)
     activesupport (3.0.7)
-    annotate-models (1.0.4)
+    annotate (2.4.0)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
     attr_encrypted (1.2.0)
@@ -138,7 +138,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_enum (~> 0.9.1)
-  annotate-models
+  annotate
   attr_encrypted (~> 1.2.0)
   curb
   factory_girl_rails
