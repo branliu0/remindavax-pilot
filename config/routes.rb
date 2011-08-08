@@ -27,9 +27,11 @@ RemindavaxPilot::Application.routes.draw do
   root :to => redirect('/patients/today')
   match '/login', :to => 'sessions#new'
   match '/logout', :to => 'sessions#destroy'
+  match '/become_user', :to => 'sessions#become_user'
   match '/search', :to => 'patients#search'
 
   post '/appointments/batch_update_dates'
+
 
   get '/cron/anm_sms'
 

@@ -1,0 +1,6 @@
+%h2 Become User
+%p This is for debugging purposes only! You can become any user by entering its username. But note that once you become a user, you'll have to re-login as an admin to get back to this page.
+
+= form_tag become_user_path, :method => :post do
+  = text_field_tag :username, params[:username], :placeholder => "Username"
+  = submit_tag "Become user!"
