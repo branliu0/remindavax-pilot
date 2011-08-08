@@ -4,14 +4,21 @@
 // Initialize the patients/index check in buttons
 $(function() {
   $("td.check-in").each(function(i, elt) {
-    patient_id = $(this).attr("patient");
-    checked_in = $(this).attr("checked_in") === "true";
-    if (checked_in) {
-      $(this).html('<span class="checked_in">Checked in</span>');
+    var $this = $(this);
+    var checkedIn = $(this).attr('data-checked-in') === "true";
+    if (checkedIn) {
+      $this.html('<span class="checked_in">Checked in</span>');
     }
     else {
-      $(this).html('<a href="/patients/' + patient_id + '/check_in" data-method="post" data-remote="true" rel="nofollow">Check in</a>');
+      $this.html('<a href="javascript:void(0)" rel="nofollow">Check in</a>');
     }
+  });
+  $("td.check-in a").live('click', function(e) {
+    var $this = $(this);
+    var patientId = $this.parent().attr('data-patient');
+    $.post("/patients/"+patientId+"/check_in", function(data) {
+      $this.parent().html('<span class="checked_in">Checked in</span>');
+    });
   });
 
   $('input[datepicker="true"]').datepicker({ dateFormat: "dd-mm-yy"});
