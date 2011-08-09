@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   before_filter :logged_in_authenticate, :except => [:new, :create]
-  before_filter :admin_authenticate, :become_user
-  before_filter :become_user_authenticate, :become_user
+  before_filter :admin_authenticate, :only => :become_user
+  before_filter :become_user_authenticate, :only => :become_user
 
   def new
   end
