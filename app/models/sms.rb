@@ -17,4 +17,12 @@ class Sms < ActiveRecord::Base
   validates :appointment, :presence => true
 
   validates :message, :presence => true
+
+  def self.creation_stats_by_week(phc_id)
+    joins(:appointment => :patient)
+      .select("COUNT(1) as count, YEARWEEK(sms.created_at, 1) as yrwk, YEAR(sms.created_at) as year, WEEK(sms.created_at, 1) as week")
+      .where("patients.phc_id = ?", phc_id)
+      .group("yrwk")
+      .order("yrwk DESC")
+  end
 end

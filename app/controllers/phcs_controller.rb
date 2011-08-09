@@ -33,6 +33,7 @@ class PhcsController < ApplicationController
     Patient.creation_stats_by_week(current_user.phc).each { |week| each_block.call(:patient_count, week) }
     Appointment.creation_stats_by_week(current_user.phc).each { |week| each_block.call(:appointment_count, week) }
     Visit.creation_stats_by_week(current_user.phc).each { |week| each_block.call(:visit_count, week) }
+    Sms.creation_stats_by_week(current_user.phc).each { |week| each_block.call(:sms_count, week) }
     @creation_stats.map do |yrwk, data|
       @creation_stats[yrwk][:week_start] = Date.commercial(yrwk / 100, yrwk % 100, 1)
       @creation_stats[yrwk][:week_end] = Date.commercial(yrwk / 100, yrwk % 100, 7)
