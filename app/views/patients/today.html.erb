@@ -36,3 +36,5 @@
     <%= render :partial => 'appt_today', :collection => @overdue_appts %>
   </tbody>
 </table>
+
+<%= link_to "Prepare SMS!", prepare_reminders_path, :class => "big-link right" %>
