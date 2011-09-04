@@ -10,11 +10,10 @@
 #
 
 class Phc < ActiveRecord::Base
-  has_many :users
   has_many :patients
-  has_many :anms
-  has_many :ashas
-  has_many :subcenters
+  has_many :anms, :dependent => :destroy
+  has_many :ashas, :dependent => :destroy
+  has_many :subcenters, :dependent => :destroy
 
   validates :name, :presence => true
 
