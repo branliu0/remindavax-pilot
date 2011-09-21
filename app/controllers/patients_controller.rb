@@ -7,8 +7,8 @@ class PatientsController < ApplicationController
 
   def show
     @visit = @patient.latest_visit
-    @appointments = @patient.scheduled_appointments.order("date ASC").dup
-    @appointment = @patient.appointments.build
+    @appointments = @patient.scheduled_appointments.order("date ASC")
+    @appointment = Appointment.new
   end
 
   def new
