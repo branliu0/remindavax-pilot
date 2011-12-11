@@ -68,25 +68,24 @@ class PhcsController < ApplicationController
         end
       end
 
-      stats = stats.sort{ |a,b| b[0] <=> a[0] } # by yrwk DESC
+      # Generate the chart URLs
+      chart_url = ""
+      stats = stats.sort{ |a,b| a[0] <=> b[0] } # by yrwk ASC
         .map{ |x| x[1] } # Just make it an array of hashes, discarding the yrwk key
-      @creation_stats << [phc.name, stats]
-    end
-
-    # Generate the chart urls
-    @creation_stats.map! do |arr|
-      name, stats = arr
-      if stats.empty? then next [name, stats, ""] end
-      patient_data = stats.reverse.map{ |r| r[:patient_count] || 0 }
-      partial_sums = []
-      patient_data.length.times do |i|
-        if i == 0
-          partial_sums[i] = patient_data[0]
-        else
-          partial_sums[i] = patient_data[i] + partial_sums[i-1]
+      if stats.any?
+        patient_data = stats.map{ |r| r[:patient_count] || 0 }
+        patient_data.length.times do |i|
+          if i == 0
+            stats[i][:patient_partial_count] = patient_data[0]
+          else
+            stats[i][:patient_partial_count] = patient_data[i] + stats[i-1][:patient_partial_count]
+          end
         end
+        partial_sums = stats.map{ |r| r[:patient_partial_count] }
+        chart_url = CHART_URL + "chxr=0,0,#{partial_sums[-1]*11/10}&chd=t:#{partial_sums.join(",")}"
       end
-      [name, stats, CHART_URL + "chxr=0,0,#{partial_sums[-1]*11/10}&chd=t:#{partial_sums.join(",")}"]
+
+      @creation_stats << [phc.name, stats.reverse, chart_url]
     end
   end
 end

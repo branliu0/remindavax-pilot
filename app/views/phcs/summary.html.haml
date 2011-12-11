@@ -9,6 +9,7 @@
       %tr
         %th Week
         %th New Patients
+        %th Cumulative Enrollment
         %th New Appointments
         %th Visits
         %th SMS sent
@@ -17,6 +18,7 @@
         %tr
           %td= "#{row[:week_start].strftime} -- #{row[:week_end].strftime}"
           %td= row[:patient_count] || 0
+          %td= row[:patient_partial_count]
           %td= row[:appointment_count] || 0
           %td= row[:visit_count] || 0
           %td= row[:sms_count] || 0
