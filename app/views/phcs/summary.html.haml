@@ -2,7 +2,7 @@
 
 = "Patients with cell number (not ANM's number): #{@percentage}% (#{@num_patients_with_mobile}/#{@num_patients})"
 
-- @creation_stats.each do |name, stats|
+- @creation_stats.each do |name, stats, chart_url|
   %h3= name
   %table
     %thead
@@ -20,3 +20,4 @@
           %td= row[:appointment_count] || 0
           %td= row[:visit_count] || 0
           %td= row[:sms_count] || 0
+  %img(src=chart_url)

@@ -24,7 +24,9 @@ class PhcsController < ApplicationController
     @subcenter = Subcenter.new(:phc_id => @phc)
   end
 
+  CHART_URL = "https://chart.googleapis.com/chart?cht=lc&chs=800x200&chxt=y&chds=a&"
   def summary
+    # Details on patients with mobile phones
     @num_patients = Patient.count
     @num_patients_with_mobile = Patient.all.count do |p|
       p.mobile.size > 0 && (p.anm.nil? || p.mobile != p.anm.mobile)
@@ -38,6 +40,7 @@ class PhcsController < ApplicationController
       hash[week.yrwk].merge!(key => week.count)
     end
 
+    # Collect the stats
     phcs.each do |phc|
       stats = Hash.new
       Patient.creation_stats_by_week(phc).each { |week| each_block.call(stats, :patient_count, week) }
@@ -48,9 +51,42 @@ class PhcsController < ApplicationController
         stats[yrwk][:week_start] = Date.commercial(yrwk / 100, yrwk % 100, 1)
         stats[yrwk][:week_end] = Date.commercial(yrwk / 100, yrwk % 100, 7)
       end
-      stats = stats.to_a.sort{ |a,b| b[0] <=> a[0] } # by yrwk DESC
+
+      # Add in the weeks with no data
+      stats = stats.to_a.sort{ |a,b| a[0] <=> b[0] } # Sort by yrwk ASC
+      if stats.any?
+        day = stats[0][1][:week_start]
+        logger.debug "#{day}"
+        i = 0
+        while day < Date.today
+          if i < stats.length && day == stats[i][1][:week_start]
+            i += 1
+          else
+            stats << [100 * day.cwyear + day.cweek, { week_start: day, week_end: day + 6.days }]
+          end
+          day += 7.days
+        end
+      end
+
+      stats = stats.sort{ |a,b| b[0] <=> a[0] } # by yrwk DESC
         .map{ |x| x[1] } # Just make it an array of hashes, discarding the yrwk key
       @creation_stats << [phc.name, stats]
+    end
+
+    # Generate the chart urls
+    @creation_stats.map! do |arr|
+      name, stats = arr
+      if stats.empty? then next [name, stats, ""] end
+      patient_data = stats.reverse.map{ |r| r[:patient_count] || 0 }
+      partial_sums = []
+      patient_data.length.times do |i|
+        if i == 0
+          partial_sums[i] = patient_data[0]
+        else
+          partial_sums[i] = patient_data[i] + partial_sums[i-1]
+        end
+      end
+      [name, stats, CHART_URL + "chxr=0,0,#{partial_sums[-1]*11/10}&chd=t:#{partial_sums.join(",")}"]
     end
   end
 end
