@@ -25,6 +25,12 @@ class PhcsController < ApplicationController
   end
 
   def summary
+    @num_patients = Patient.count
+    @num_patients_with_mobile = Patient.all.count do |p|
+      p.mobile.size > 0 && (p.anm.nil? || p.mobile != p.anm.mobile)
+    end
+    @percentage = 100*@num_patients_with_mobile/@num_patients
+
     phcs = current_user.admin? ? Phc.all : [ current_user.phc ]
     @creation_stats = []
     each_block = Proc.new do |hash, key, week|

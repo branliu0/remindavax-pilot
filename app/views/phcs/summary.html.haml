@@ -1,5 +1,7 @@
 %h2 Week by Week Statistics
 
+= "Patients with cell number (not ANM's number): #{@percentage}% (#{@num_patients_with_mobile}/#{@num_patients})"
+
 - @creation_stats.each do |name, stats|
   %h3= name
   %table
