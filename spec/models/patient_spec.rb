@@ -37,3 +37,30 @@ describe Patient do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: patients
+#
+#  id                               :integer(4)      not null, primary key
+#  name                             :string(255)
+#  encrypted_mobile                 :string(255)
+#  encrypted_cell_access            :string(255)
+#  phc_id                           :integer(4)
+#  created_at                       :datetime
+#  updated_at                       :datetime
+#  receiving_texts                  :boolean(1)
+#  encrypted_expected_delivery_date :string(255)
+#  encrypted_husband_name           :string(255)
+#  encrypted_caste                  :string(255)
+#  encrypted_taayi_card_number      :string(255)
+#  encrypted_mother_age             :string(255)
+#  encrypted_education              :string(255)
+#  encrypted_delivery_place         :string(255)
+#  anm_id                           :integer(4)
+#  encrypted_ec_number              :string(255)
+#  encrypted_village                :string(255)
+#  subcenter_id                     :integer(4)
+#  asha_id                          :integer(4)
+#
+

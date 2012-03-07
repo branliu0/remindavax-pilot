@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802042656) do
+ActiveRecord::Schema.define(:version => 20111020142530) do
 
   create_table "anms", :force => true do |t|
     t.string   "name"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20110802042656) do
     t.string   "encrypted_village"
     t.integer  "subcenter_id"
     t.integer  "asha_id"
+    t.boolean  "abortion"
   end
 
   create_table "phcs", :force => true do |t|

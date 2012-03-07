@@ -1,0 +1,35 @@
+<header>
+  <h1 id="logo" class="left">
+    <%= link_to(root_path) do %>
+      Reminda<span>vax</span>
+    <% end %>
+  </h1>
+  <nav>
+  <ul>
+    <% if logged_in? %>
+      <li>
+      Welcome, <b><%= current_user.username %></b>
+      <% if current_user.admin? %>
+        | <%= link_to "Create User", new_user_path %> | <%= link_to "Create PHC", new_phc_path %>
+      <% end %>
+      | <%= link_to "Create ANM", new_anm_path %> | <%= link_to "Create ASHA", new_asha_path %> | <%= link_to "Create Registration", new_patient_path %>
+      </li>
+      <li>PHC: <b><%= current_user.phc.name %></b>
+      <% if current_user.admin? %>
+        | <%= link_to "PHCs", phcs_path %>
+      <% end %>
+      | <%= link_to "ANMs", anms_path %>
+      | <%= link_to "ASHAs", ashas_path %>
+      | <%= link_to "all cases", patients_path %>
+      | <%= link_to "due today", today_patients_path %>
+      | <%= link_to "search", search_path %>
+      | <%= link_to "prepare sms", prepare_reminders_path %>
+
+      </li>
+      <li><%= link_to "logout", logout_path %></li>
+    <% else %>
+      <li><%= link_to "login", login_path %></li>
+    <% end %>
+  </ul>
+  </nav>
+</header>
