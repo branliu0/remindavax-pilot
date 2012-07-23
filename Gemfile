@@ -16,6 +16,7 @@ gem 'whenever'
 gem 'haml'
 gem 'rack-offline'
 gem 'airbrake'
+gem 'airbrake_user_attributes'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
