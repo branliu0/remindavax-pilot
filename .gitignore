@@ -4,6 +4,7 @@ log/*
 tmp/
 config/config.yml
 config/database.yml
+config/initializers/errbit.rb
 awstats-icon
 awstatsicons
 icon

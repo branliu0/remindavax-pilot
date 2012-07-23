@@ -30,6 +30,9 @@ GEM
       activemodel (= 3.0.7)
       activesupport (= 3.0.7)
     activesupport (3.0.7)
+    airbrake (3.1.2)
+      activesupport
+      builder
     annotate (2.4.0)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
@@ -139,6 +142,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_enum (~> 0.9.1)
+  airbrake
   annotate
   attr_encrypted (~> 1.2.0)
   curb

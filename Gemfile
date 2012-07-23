@@ -15,6 +15,7 @@ gem 'log4r'
 gem 'whenever'
 gem 'haml'
 gem 'rack-offline'
+gem 'airbrake'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
