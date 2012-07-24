@@ -2,8 +2,8 @@
   <td><%= link_to reminder.patient.name, reminder.patient %></td>
   <td><%= (reminder.patient.subcenter.nil?) ? "None" : (link_to reminder.patient.subcenter.name, reminder.patient.subcenter) %></td>
   <td><%= reminder.patient.village %></td>
-  <td><%= link_to reminder.patient.anm.name, reminder.patient.anm %></td>
-  <td><%= reminder.patient.anm.mobile %></td>
+  <td><%= (reminder.patient.anm.nil?) ? "None" : (link_to reminder.patient.anm.name, reminder.patient.anm) %></td>
+  <td><%= (reminder.patient.anm.nil?) ? "None" : (reminder.patient.anm.mobile) %></td>
   <td><%= reminder.name %></td>
   <td><%= text_field_tag "appt_#{reminder.id}", reminder.date_str, :datepicker => true, :updateable => true, :appt_id => reminder.id %></td>
   <td><%= ! reminder.patient.subcenter.control? %></td>
