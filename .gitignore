@@ -9,3 +9,8 @@ awstats-icon
 awstatsicons
 icon
 stats
+
+# Vim
+.*.sw[a-z]
+*.un~
+Session.vim
