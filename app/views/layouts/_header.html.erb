@@ -12,7 +12,9 @@
       <% if current_user.admin? %>
         | <%= link_to "Create User", new_user_path %> | <%= link_to "Create PHC", new_phc_path %>
       <% end %>
-      | <%= link_to "Create ANM", new_anm_path %> | <%= link_to "Create ASHA", new_asha_path %> | <%= link_to "Create Registration", new_patient_path %>
+      | <%= link_to "Create ANM", new_anm_path %> | <%= link_to "Create ASHA", new_asha_path %>
+      | <%= link_to "Create Registration", new_patient_path %>
+      | <%= link_to "Create TB Registration", new_tb_patient_path %>
       </li>
       <li>PHC: <b><%= current_user.phc.name %></b>
       <% if current_user.admin? %>
