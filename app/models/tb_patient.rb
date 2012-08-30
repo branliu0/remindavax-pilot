@@ -1,4 +1,4 @@
-class TbPatient < ActiveRecord::Base
+class TBPatient < ActiveRecord::Base
   attr_accessible :name, :age, :sex, :address, :mobile, :village, :subcenter_id,
     :anm_id, :caste, :children_below_6, :education
 
@@ -13,8 +13,8 @@ class TbPatient < ActiveRecord::Base
     value :name => 'female'
   end
   validates :address, :presence => true
-  validates :mobile, :numericality => true, :if => Proc.new { |p| !p.mobile.blank? }
-  validates_length_of :mobile, :is => 10 , :message => "should be 10 digits", :if => Proc.new { |p| !p.mobile.blank? }
+  validates :mobile, :presence => true, :numericality => true
+  validates_length_of :mobile, :is => 10 , :message => "should be 10 digits"
   validates :village, :presence => true
   validates :subcenter, :presence => true
   validates :anm, :presence => true

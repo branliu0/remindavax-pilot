@@ -1,0 +1,18 @@
+<%= semantic_form_for @tb_patient do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name %>
+    <%= form.input :age %>
+    <%= form.input :sex %>
+    <%= form.input :address %>
+    <%= form.input :mobile %>
+    <%= form.input :village %>
+    <%= form.input :subcenter, :collection => current_user.phc.subcenters.order("name ASC") %>
+    <%= form.input :anm, :collection => current_user.phc.anms.order("name ASC") %>
+    <%= form.input :caste %>
+    <%= form.input :children_below_6 %>
+    <%= form.input :education %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button :label => (@tb_patient.new_record?) ? 'Create Registration' : 'Update Registration' %>
+  <% end %>
+<% end %>
