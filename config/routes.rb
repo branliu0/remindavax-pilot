@@ -33,6 +33,7 @@ RemindavaxPilot::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy'
   match '/become_user', :to => 'sessions#become_user'
   match '/search', :to => 'patients#search'
+  match '/search_tb', :to => 'tb_patients#search'
 
   post '/appointments/batch_update_dates'
 

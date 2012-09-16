@@ -37,39 +37,29 @@ class TbPatientsController < ApplicationController
       render :edit
     end
   end
-=begin
 
   def destroy
-    @patient.destroy if @patient
+    @tb_patient.destroy if @tb_patient
     flash[:success] = "Successfully deleted registration"
-    flash[:success] += " #{@patient.name}" if @patient
-    redirect_to patients_path
+    flash[:success] += " #{@tb_patient.name}" if @tb_patient
+    redirect_to tb_patients_path
   end
 
   def search
     if params[:q] # A query was actually entered
-      if /\A\d{7}\Z/ === params[:q] # Entered an Taayi Card Number (7 digits)
-        @patient = Patient.find_by_taayi_card_number(params[:q])
-        if @patient
-          redirect_to @patient
-        else
-          @patient = Patient.new(:taayi_card_number => params[:q])
-          render :new
-        end
-      else # Entered a name
-        @patients = Patient.search(current_user.phc, params[:q]).order("name ASC").paginate(:page => params[:page])
-        if @patients.any?
+        @tb_patients = TbPatient.search(current_user.phc, params[:q]).order("name ASC").paginate(:page => params[:page])
+        if @tb_patients.any?
           render :index
         else
-          @patient = Patient.new(:name => params[:q])
+          @tb_patient = TbPatient.new(:name => params[:q])
           render :new
         end
-      end
     else # Just rerender the search page if nothing was entered
       render :search
     end
   end
 
+=begin
   def check_in
     if not @patient.checked_in?
       @patient.visits.create!(:date => Date.today, :description => params[:description])

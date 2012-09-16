@@ -8,8 +8,8 @@ class TbPatient < ActiveRecord::Base
   validates :subcenter, :presence => true
   belongs_to :anm
   validates :anm, :presence => true
-  has_many :visits, :dependent => :destroy
-  has_many :appointments, :dependent => :destroy
+  has_many :visits#, :dependent => :destroy
+  has_many :appointments#, :dependent => :destroy
   has_many :sms
   
   belongs_to :subcenter
@@ -59,6 +59,8 @@ class TbPatient < ActiveRecord::Base
   attr_encrypted :children_below_6, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :education, :key => APP_CONFIG['encrypt_key']
   
-
+  def self.search(phc, query)
+    where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
+  end
   
 end
