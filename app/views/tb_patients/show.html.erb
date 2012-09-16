@@ -1,17 +1,19 @@
 <h1><%= @tb_patient.name %></h1>
-<%= link_to "Edit", edit_patient_path(@tb_patient) %>
+<%= link_to "Edit", edit_tb_patient_path(@tb_patient) %>
 
 <ul class="details">
   <li><b>Age:</b> <%= @tb_patient.age %></li>
-  <li><b>Sex:</b> <%= @tb_patient.sex %></li>
+
+  <li><b>Sex:</b> <%= TbPatient::Sex[@tb_patient.sex.to_i] %></li>
+
   <li><b>Address:</b> <%= @tb_patient.address %></li>
   <li><b>Mobile:</b> <%= @tb_patient.mobile %></li>
   <li><b>Village:</b> <%= @tb_patient.village %></li>
   <li><b>Subcenter:</b> <%= (@tb_patient.subcenter.nil?) ? "None" : (link_to @tb_patient.subcenter.name, @tb_patient.subcenter) %></li>
   <li><b>ANM:</b> <%= (@tb_patient.anm.nil?) ? "None" : (link_to @tb_patient.anm.name, @tb_patient.anm) %></li>
-  <li><b>Caste:</b> <%= Patient::Caste[@tb_patient.caste.to_i] %></li>
-  <li><b>Children below 6:</b> <%= @tb_patient.children_below_6 %></li>
-  <li><b>Education:</b> <%= Patient::Education[@tb_patient.education.to_i] %></li>
+  <li><b>Caste:</b> <%= TbPatient::Caste[@tb_patient.caste.to_i] %></li>
+  <li><b>Children below 6:</b> <%= TbPatient::ChildrenBelow6[@tb_patient.children_below_6.to_i] %></li>
+  <li><b>Education:</b> <%= TbPatient::Education[@tb_patient.education.to_i] %></li>
 </ul>
 
 <% if false %>
