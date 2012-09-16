@@ -1,3 +1,7 @@
+<% if false %>
+<%= render :partial => 'search_form' %>
+<% end %>
+
 <h1>TB Registrations</h1>
 <p class="subhead">If the registration you are looking for is not listed below, please add the registration <%= link_to "here", new_tb_patient_path %>.</p>
 
@@ -30,4 +34,4 @@
 
 <%= will_paginate %>
 
-<%= link_to "Add New Registration to Database", new_patient_path, :id => "add_patient" %>
+<%= link_to "Add New TB Registration to Database", new_tb_patient_path, :id => "add_tb_patient" %>
