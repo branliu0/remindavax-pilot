@@ -26,18 +26,18 @@ class TbPatientsController < ApplicationController
     end
   end
 
-=begin
   def edit
   end
 
   def update
-    if @patient.update_attributes(params[:patient])
+    if @tb_patient.update_attributes(params[:tb_patient])
       flash[:success] = 'Updated registration!'
-      redirect_to @patient
+      redirect_to @tb_patient
     else
       render :edit
     end
   end
+=begin
 
   def destroy
     @patient.destroy if @patient
