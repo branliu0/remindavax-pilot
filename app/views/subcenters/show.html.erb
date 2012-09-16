@@ -5,3 +5,10 @@
     <li><%= link_to p.name, p %></li>
   <% end %>
 </ul>
+<br>
+<h4>TB Patients</h4>
+<ul>
+  <% @subcenter.tb_patients.each do |p| %>
+    <li><%= link_to p.name, p %></li>
+  <% end %>
+</ul>

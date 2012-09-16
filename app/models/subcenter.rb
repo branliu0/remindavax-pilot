@@ -3,6 +3,7 @@ class Subcenter < ActiveRecord::Base
 
   belongs_to :phc
   has_many :patients
+  has_many :tb_patients
 
   validates :name, :presence => true
   validates :phc, :presence => true
