@@ -5,7 +5,7 @@ class Treatment < ActiveRecord::Base
   belongs_to :treatment_type, :primary_key => :treatment_type_id
   #has_many :sms, :class_name => "Sms", :dependent => :destroy
 
-  validates :patient, :presence => true
+  validates :tb_patient, :presence => true
   validates :treatment_type, :presence => true
   validates :start_date, :presence => true
   validates :end_date, :presence => true
@@ -27,7 +27,7 @@ class Treatment < ActiveRecord::Base
   end
 
   def sms_message
-    msg = "#{patient.name}: +#{name}+     #{message}"
+    msg = "#{tb_patient.name}: +#{name}+     #{message}"
     msg = "!!IMPORTANT!! " + msg if date < Date.today # Add a warning if this appt is overdue
     msg
   end

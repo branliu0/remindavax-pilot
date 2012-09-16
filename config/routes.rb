@@ -15,7 +15,11 @@ RemindavaxPilot::Application.routes.draw do
       resources :appointments
     end
   end
-  resources :tb_patients
+  resources :tb_patients do
+    member do
+      resources :treatments
+    end
+  end
   resources :users
   resources :sessions
   resources :phcs do

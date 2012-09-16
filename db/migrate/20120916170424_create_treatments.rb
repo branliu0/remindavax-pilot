@@ -1,6 +1,7 @@
 class CreateTreatments < ActiveRecord::Migration
   def self.up
     create_table :treatments do |t|
+      t.integer :tb_patient_id
       t.integer :treatment_type_id
       t.date :start_date
       t.date :end_date

@@ -1,6 +1,7 @@
 class CreateTreatmentTypes < ActiveRecord::Migration
   def self.up
     create_table :treatment_types do |t|
+      t.integer :treatment_type_id
       t.string :name
       t.string :message
       t.string :frequency

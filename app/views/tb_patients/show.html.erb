@@ -18,42 +18,44 @@
 
 <% if false %>
 
-<h3>Latest Visit</h3>
-<% if @visit %>
-  <p><%= @visit.description %> on <b><%= @visit.date %></b></p>
-<% else %>
-  <p><%= @tb_patient.name %> has not visited yet!</p>
+  <h3>Latest Visit</h3>
+  <% if @visit %>
+    <p><%= @visit.description %> on <b><%= @visit.date %></b></p>
+  <% else %>
+    <p><%= @tb_patient.name %> has not visited yet!</p>
+  <% end %>
+
+  <h4>Check In</h4>
+  <% if @tb_patient.checked_in? %>
+    <p><%= @tb_patient.name %> has already checked in today!</p>
+  <% end %>
+  <%= form_tag check_in_patient_path(@tb_patient), :method => :post, :id => "check_in" do %>
+    <%= text_field_tag :description, nil, :placeholder => "Description", :disabled => @tb_patient.checked_in? %>
+    <%= submit_tag "Check in", :disabled => @tb_patient.checked_in? %>
+  <% end %>
+
 <% end %>
 
-<h4>Check In</h4>
-<% if @tb_patient.checked_in? %>
-  <p><%= @tb_patient.name %> has already checked in today!</p>
-<% end %>
-<%= form_tag check_in_patient_path(@tb_patient), :method => :post, :id => "check_in" do %>
-  <%= text_field_tag :description, nil, :placeholder => "Description", :disabled => @tb_patient.checked_in? %>
-  <%= submit_tag "Check in", :disabled => @tb_patient.checked_in? %>
-<% end %>
-
-<h3>Scheduled Appointments</h3>
-<% if @appointments.any? %>
+<h3>Ongoing Treatments</h3>
+<% if @treatments.any? %>
   <ul>
-    <% @appointments.each do |appt| %>
-      <li><%= appt.name %> on <b><%= appt.date %></b> | <%= link_to "Delete", appt, :method => :delete, :confirm => "Are you sure?" %></li>
+    <% @treatments.each do |t| %>
+      <li><%= t.name %> on <b><%= t.date %></b> | <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %></li>
     <% end %>
   </ul>
 <% else %>
-  <p>No appointment have been scheduled yet!</p>
+  <p>No treatment have been scheduled yet!</p>
 <% end %>
 
-<h3>Add Appointment</h3>
-<%= semantic_form_for @appointment, :input_html => { :id => "appointment_form" } do |f| %>
+<h3>Add Treatment</h3>
+<%= semantic_form_for @treatment, :input_html => { :id => "treatment_form" } do |f| %>
   <%= f.inputs do %>
-    <%= f.input :date, :as => :string, :input_html => { :datepicker => "true" } %>
-    <%= f.input :appointment_type, :collection => AppointmentType.names %>
+    <%= f.input :start_date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= f.input :end_date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= f.input :treatment_type, :collection => TreatmentType.names %>
   <% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>
   <% end %>
 <% end %>
 
-<% end %>

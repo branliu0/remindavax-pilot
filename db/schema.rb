@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20120916171010) do
   end
 
   create_table "treatment_types", :force => true do |t|
+    t.integer  "treatment_type_id"
     t.string   "name"
     t.string   "message"
     t.string   "frequency"
@@ -114,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20120916171010) do
   end
 
   create_table "treatments", :force => true do |t|
+    t.integer  "tb_patient_id"
     t.integer  "treatment_type_id"
     t.date     "start_date"
     t.date     "end_date"

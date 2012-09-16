@@ -7,8 +7,8 @@ class TbPatientsController < ApplicationController
 
   def show
     #@visit = @tb_patient.latest_visit
-    #@appointments = @tb_patient.scheduled_appointments.order("date ASC")
-    #@appointment = Appointment.new
+    @treatments = @tb_patient.ongoing_treatments.order("start_date ASC")
+    @treatment = Treatment.new
   end
 
   def new

@@ -63,6 +63,11 @@ class TbPatient < ActiveRecord::Base
     where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
   end
 
+  def ongoing_treatments
+    Treatment.where("tb_patient_id = ?", self).order("start_date ASC")
+  end
+
+
   # This method should be called by a cron routine every Monday at 7:30AM IST, or
   # 2PM UTC/GMT, or 10PM EST
   def self.send_weekly_reminders(send = true)
@@ -79,13 +84,13 @@ class TbPatient < ActiveRecord::Base
     logger.info messages
     messages
   end
-  
+
   # This method should be called by a cron routine every Monday, Wednesday, and Friday
   # at 7:30AM IST, or 2PM UTC/GMT, or 10PM EST
   def self.send_triweekly_reminders(send = true)
     messages = ""
     #treatments.select {|t| t.startdate == Date.today }.any?
-    
+
     all.each do |tb_patient|
       if () #check if this is a triweekly reminder
         msg = tb_patient.sms_message
@@ -111,5 +116,5 @@ class TbPatient < ActiveRecord::Base
     msg
   end
 
-  
+
 end

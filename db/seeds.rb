@@ -17,3 +17,12 @@ AppointmentType.create([
   { :appointment_type_id => 7, :name => "DPT 3, Polio 4, Hepatitis B 3 injection", :message => "Visit PHC/SC/Anganwadi for immunization on %date%" },
   { :appointment_type_id => 8, :name => "Measles"                                 , :message => "Visit PHC/SC/Aganwadi for immunization on %date%" }
 ])
+
+TreatmentType.delete_all
+TreatmentType.create([
+  { :treatment_type_id => 1, :name => "Cat 1 Intensive"                         , :message => "Red box" },
+  { :treatment_type_id => 2, :name => "Cat 1 Continuous"                        , :message => "Red box" },
+  { :treatment_type_id => 3, :name => "Cat 2 Intensive"                         , :message => "Blue box" },
+  { :treatment_type_id => 4, :name => "Cat 2 Continuous"                        , :message => "Blue box" },
+])
+
