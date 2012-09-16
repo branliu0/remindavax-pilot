@@ -1,0 +1,57 @@
+<h1><%= @tb_patient.name %></h1>
+<%= link_to "Edit", edit_patient_path(@tb_patient) %>
+
+<ul class="details">
+  <li><b>Age:</b> <%= @tb_patient.age %></li>
+  <li><b>Sex:</b> <%= @tb_patient.sex %></li>
+  <li><b>Address:</b> <%= @tb_patient.address %></li>
+  <li><b>Mobile:</b> <%= @tb_patient.mobile %></li>
+  <li><b>Village:</b> <%= @tb_patient.village %></li>
+  <li><b>Subcenter:</b> <%= (@tb_patient.subcenter.nil?) ? "None" : (link_to @tb_patient.subcenter.name, @tb_patient.subcenter) %></li>
+  <li><b>ANM:</b> <%= (@tb_patient.anm.nil?) ? "None" : (link_to @tb_patient.anm.name, @tb_patient.anm) %></li>
+  <li><b>Caste:</b> <%= Patient::Caste[@tb_patient.caste.to_i] %></li>
+  <li><b>Children below 6:</b> <%= @tb_patient.children_below_6 %></li>
+  <li><b>Education:</b> <%= Patient::Education[@tb_patient.education.to_i] %></li>
+</ul>
+
+<% if false %>
+
+<h3>Latest Visit</h3>
+<% if @visit %>
+  <p><%= @visit.description %> on <b><%= @visit.date %></b></p>
+<% else %>
+  <p><%= @tb_patient.name %> has not visited yet!</p>
+<% end %>
+
+<h4>Check In</h4>
+<% if @tb_patient.checked_in? %>
+  <p><%= @tb_patient.name %> has already checked in today!</p>
+<% end %>
+<%= form_tag check_in_patient_path(@tb_patient), :method => :post, :id => "check_in" do %>
+  <%= text_field_tag :description, nil, :placeholder => "Description", :disabled => @tb_patient.checked_in? %>
+  <%= submit_tag "Check in", :disabled => @tb_patient.checked_in? %>
+<% end %>
+
+<h3>Scheduled Appointments</h3>
+<% if @appointments.any? %>
+  <ul>
+    <% @appointments.each do |appt| %>
+      <li><%= appt.name %> on <b><%= appt.date %></b> | <%= link_to "Delete", appt, :method => :delete, :confirm => "Are you sure?" %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No appointment have been scheduled yet!</p>
+<% end %>
+
+<h3>Add Appointment</h3>
+<%= semantic_form_for @appointment, :input_html => { :id => "appointment_form" } do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= f.input :appointment_type, :collection => AppointmentType.names %>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>
+
+<% end %>

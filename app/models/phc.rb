@@ -11,6 +11,7 @@
 
 class Phc < ActiveRecord::Base
   has_many :patients
+  has_many :tb_patients
   has_many :anms, :dependent => :destroy
   has_many :ashas, :dependent => :destroy
   has_many :subcenters, :dependent => :destroy

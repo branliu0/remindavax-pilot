@@ -1,7 +1,17 @@
-class TBPatient < ActiveRecord::Base
+class TbPatient < ActiveRecord::Base
   attr_accessible :name, :age, :sex, :address, :mobile, :village, :subcenter_id,
     :anm_id, :caste, :children_below_6, :education
 
+  belongs_to :phc
+  validates :phc, :presence => true
+  belongs_to :subcenter
+  validates :subcenter, :presence => true
+  belongs_to :anm
+  validates :anm, :presence => true
+  has_many :visits, :dependent => :destroy
+  has_many :appointments, :dependent => :destroy
+  has_many :sms
+  
   belongs_to :subcenter
   belongs_to :anm
 
@@ -41,6 +51,7 @@ class TBPatient < ActiveRecord::Base
   # Note: attr_encrypted _must_ go after enumerate (active_enum) in order to
   # work.
   attr_encrypted :age, :key => APP_CONFIG['encrypt_key']
+  attr_encrypted :sex, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :address, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :mobile, :key => APP_CONFIG['encrypt_key']
   attr_encrypted :village, :key => APP_CONFIG['encrypt_key']

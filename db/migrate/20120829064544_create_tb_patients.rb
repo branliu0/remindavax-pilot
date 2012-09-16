@@ -3,7 +3,7 @@ class CreateTbPatients < ActiveRecord::Migration
     create_table :tb_patients do |t|
       t.string :name
       t.integer :encrypted_age
-      t.string :sex
+      t.string :encrypted_sex
       t.string :encrypted_address
       t.string :encrypted_mobile
       t.string :encrypted_village

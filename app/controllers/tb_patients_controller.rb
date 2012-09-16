@@ -1,34 +1,32 @@
 class TbPatientsController < ApplicationController
   before_filter :authorize, :only => [:show, :edit, :update, :destroy, :check_in]
 
-=begin
   def index
-    @patients = current_user.phc.patients.order("name ASC").paginate(:page => params[:page])
+    @tb_patients = current_user.phc.tb_patients.order("name ASC").paginate(:page => params[:page])
   end
 
   def show
-    @visit = @patient.latest_visit
-    @appointments = @patient.scheduled_appointments.order("date ASC")
-    @appointment = Appointment.new
+    #@visit = @tb_patient.latest_visit
+    #@appointments = @tb_patient.scheduled_appointments.order("date ASC")
+    #@appointment = Appointment.new
   end
 
-=end
   def new
-    @tb_patient = TBPatient.new
+    @tb_patient = TbPatient.new
   end
-=begin
 
   def create
     @phc = current_user.phc
-    @patient = @phc.patients.build(params[:patient])
-    if @patient.save
+    @tb_patient = @phc.tb_patients.build(params[:tb_patient])
+    if @tb_patient.save
       flash[:success] = "Created a new registration!"
-      redirect_to @patient
+      redirect_to @tb_patient
     else
       render :new
     end
   end
 
+=begin
   def edit
   end
 
@@ -113,14 +111,16 @@ class TbPatientsController < ApplicationController
     redirect_to patients_path
   end
 
+=end
   private
     def authorize
-      @patient = Patient.find(params[:id])
-      unless @patient && @patient.phc.id == current_user.phc.id
+      @tb_patient = TbPatient.find(params[:id])
+      unless @tb_patient && @tb_patient.phc.id == current_user.phc.id
         flash[:error] = "You do not have access to this patient"
-        redirect_to patients_path
+        redirect_to tb_patients_path
       end
     end
+=begin
 
     def get_reminders
       # Remind delivery appointments 2 weeks in advance
