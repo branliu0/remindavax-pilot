@@ -2,7 +2,8 @@ class CreateTbPatients < ActiveRecord::Migration
   def self.up
     create_table :tb_patients do |t|
       t.string :name
-      t.integer :encrypted_age
+      t.integer :phc_id
+      t.string :encrypted_age
       t.string :encrypted_sex
       t.string :encrypted_address
       t.string :encrypted_mobile
