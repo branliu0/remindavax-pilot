@@ -10,6 +10,7 @@ class TbPatient < ActiveRecord::Base
   validates :anm, :presence => true
   has_many :visits#, :dependent => :destroy
   has_many :appointments#, :dependent => :destroy
+  has_many :treatments, :dependent => :destroy
   has_many :sms
   
   belongs_to :subcenter

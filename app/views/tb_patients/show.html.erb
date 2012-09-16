@@ -40,7 +40,9 @@
 <% if @treatments.any? %>
   <ul>
     <% @treatments.each do |t| %>
-      <li><%= t.name %> on <b><%= t.date %></b> | <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %></li>
+      <li><%= t.name %> from <b><%= t.start_date %></b> to <b><%= t.end_date %></b> |
+      <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %>
+      </li>
     <% end %>
   </ul>
 <% else %>
