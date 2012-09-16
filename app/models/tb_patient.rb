@@ -62,5 +62,54 @@ class TbPatient < ActiveRecord::Base
   def self.search(phc, query)
     where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
   end
+
+  # This method should be called by a cron routine every Monday at 7:30AM IST, or
+  # 2PM UTC/GMT, or 10PM EST
+  def self.send_weekly_reminders(send = true)
+    messages = ""
+    all.each do |tb_patient|
+      if () #check if this is a weekly reminder
+        msg = tb_patient.sms_message
+        SmsHelper::send_sms(tb_patient.mobile, msg) if send
+        messages += "#{msg}\n"
+      end
+    end
+
+    logger.info "TB Patient messages sent at #{Time.now}"
+    logger.info messages
+    messages
+  end
+  
+  # This method should be called by a cron routine every Monday, Wednesday, and Friday
+  # at 7:30AM IST, or 2PM UTC/GMT, or 10PM EST
+  def self.send_triweekly_reminders(send = true)
+    messages = ""
+    #treatments.select {|t| t.startdate == Date.today }.any?
+    
+    all.each do |tb_patient|
+      if () #check if this is a triweekly reminder
+        msg = tb_patient.sms_message
+        SmsHelper::send_sms(tb_patient.mobile, msg) if send
+        messages += "#{msg}\n"
+      end
+    end
+
+    logger.info "TB Patient messages sent at #{Time.now}"
+    logger.info messages
+    messages
+  end
+
+  def sms_message
+    msg = "#{name}- Today: "
+
+    today = find_appointments_by_date(:date => Date.today).map do |a|
+      p = a.patient
+      "#{p.name} for #{a.name}, #{p.taayi_card_number}"
+    end.join("; ")
+
+    msg += (today.empty?) ? "None" : today
+    msg
+  end
+
   
 end
