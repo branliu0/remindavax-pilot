@@ -64,8 +64,17 @@ class TbPatient < ActiveRecord::Base
     where('phc_id = ? AND name LIKE ?', phc, "%#{query}%")
   end
 
+  def previous_treatments
+    treatments.select { |t| t.end_date < Date.today}
+  end
+
   def ongoing_treatments
-    Treatment.where("tb_patient_id = ?", self).order("start_date ASC")
+    treatments.select { |t| t.start_date <= Date.today &&
+                            t.end_date >= Date.today}
+  end
+
+  def future_treatments
+    treatments.select { |t| t.start_date > Date.today}
   end
 
 
@@ -75,13 +84,9 @@ class TbPatient < ActiveRecord::Base
     messages = ""
     all.each do |tb_patient|
       msg = "#{tb_patient.name}: "
-      #select all ongoing treatments
-      tb_patient.treatments.select { |t| t.start_date <= Date.today &&
-                                         t.end_date >= Date.today
-
-      }.each do |ongoing_treatment|
+      tb_patient.ongoing_treatments.each do |ongoing_treatment|
         if ongoing_treatment.frequency == 'weekly' then
-          #create a message for these ongoing treatments
+          #create a message
           msg += "#{ongoing_treatment.message}\n"
         end
       end
@@ -100,13 +105,9 @@ class TbPatient < ActiveRecord::Base
     messages = ""
     all.each do |tb_patient|
       msg = "#{tb_patient.name}: "
-      #select all ongoing treatments
-      tb_patient.treatments.select { |t| t.start_date <= Date.today &&
-                                         t.end_date >= Date.today
-
-      }.each do |ongoing_treatment|
+      tb_patient.ongoing_treatments.each do |ongoing_treatment|
         if ongoing_treatment.frequency == 'triweekly' then
-          #create a message for these ongoing treatments
+          #create a message
           msg += "#{ongoing_treatment.message}\n"
         end
       end

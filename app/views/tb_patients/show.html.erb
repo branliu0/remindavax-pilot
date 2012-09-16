@@ -16,6 +16,64 @@
   <li><b>Education:</b> <%= TbPatient::Education[@tb_patient.education.to_i] %></li>
 </ul>
 
+<h3>Previous Treatments</h3>
+<% if @previous_treatments.any? %>
+  <ul>
+    <% @previous_treatments.each do |t| %>
+      <li><%= t.name %> from <b><%= t.start_date %></b> to <b><%= t.end_date %></b> |
+      <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No previous treatments!</p>
+<% end %>
+
+<h3>Ongoing Treatments</h3>
+<% if @ongoing_treatments.any? %>
+  <ul>
+    <% @ongoing_treatments.each do |t| %>
+      <li><%= t.name %> from <b><%= t.start_date %></b> to <b><%= t.end_date %></b> |
+      <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No treatment are currently scheduled!</p>
+<% end %>
+
+<h3>Future Treatments</h3>
+<% if @future_treatments.any? %>
+  <ul>
+    <% @future_treatments.each do |t| %>
+      <li><%= t.name %> from <b><%= t.start_date %></b> to <b><%= t.end_date %></b> |
+      <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No future treatments have been scheduled yet!</p>
+<% end %>
+
+<h3>Add Treatment</h3>
+<%= semantic_form_for @treatment, :input_html => { :id => "treatment_form" } do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :start_date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= f.input :end_date, :as => :string, :input_html => { :datepicker => "true" } %>
+    <%= f.input :treatment_type, :collection => TreatmentType.names %>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>
+
+
+
+
+
+
+
+
 <% if false %>
 
   <h3>Latest Visit</h3>
@@ -34,30 +92,5 @@
     <%= submit_tag "Check in", :disabled => @tb_patient.checked_in? %>
   <% end %>
 
-<% end %>
-
-<h3>Ongoing Treatments</h3>
-<% if @treatments.any? %>
-  <ul>
-    <% @treatments.each do |t| %>
-      <li><%= t.name %> from <b><%= t.start_date %></b> to <b><%= t.end_date %></b> |
-      <%= link_to "Delete", t, :method => :delete, :confirm => "Are you sure?" %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No treatment have been scheduled yet!</p>
-<% end %>
-
-<h3>Add Treatment</h3>
-<%= semantic_form_for @treatment, :input_html => { :id => "treatment_form" } do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :start_date, :as => :string, :input_html => { :datepicker => "true" } %>
-    <%= f.input :end_date, :as => :string, :input_html => { :datepicker => "true" } %>
-    <%= f.input :treatment_type, :collection => TreatmentType.names %>
-  <% end %>
-  <%= f.buttons do %>
-    <%= f.commit_button %>
-  <% end %>
 <% end %>
 
