@@ -20,9 +20,9 @@ AppointmentType.create([
 
 TreatmentType.delete_all
 TreatmentType.create([
-  { :treatment_type_id => 1, :name => "Cat 1 Intensive"                         , :message => "Red box" },
-  { :treatment_type_id => 2, :name => "Cat 1 Continuous"                        , :message => "Red box" },
-  { :treatment_type_id => 3, :name => "Cat 2 Intensive"                         , :message => "Blue box" },
-  { :treatment_type_id => 4, :name => "Cat 2 Continuous"                        , :message => "Blue box" },
+  { :treatment_type_id => 1, :name => "Cat 1 Intensive"                         , :message => "Red box",  :frequency => "triweekly"  },
+  { :treatment_type_id => 2, :name => "Cat 1 Continuous"                        , :message => "Red box",  :frequency => "weekly" },
+  { :treatment_type_id => 3, :name => "Cat 2 Intensive"                         , :message => "Blue box", :frequency => "triweekly" },
+  { :treatment_type_id => 4, :name => "Cat 2 Continuous"                        , :message => "Blue box", :frequency => "weekly" },
 ])
 

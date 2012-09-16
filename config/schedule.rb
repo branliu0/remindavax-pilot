@@ -24,3 +24,19 @@ every :day, :at => "10pm" do
   runner "Anm.send_daily_reminders"
   runner "Asha.send_daily_reminders"
 end
+
+# every week
+every :monday, :at => "10pm" do
+  runner "TbPatient.send_weekly_reminders"
+end
+
+# every 3 days
+every :monday, :at => "10pm" do
+  runner "TbPatient.send_triweekly_reminders"
+end
+every :wednesday, :at => "10pm" do
+  runner "TbPatient.send_triweekly_reminders"
+end
+every :friday, :at => "10pm" do
+  runner "TbPatient.send_triweekly_reminders"
+end
