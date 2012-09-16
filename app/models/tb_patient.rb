@@ -74,14 +74,22 @@ class TbPatient < ActiveRecord::Base
   def self.send_weekly_reminders(send = true)
     messages = ""
     all.each do |tb_patient|
-      if () #check if this is a weekly reminder
-        msg = tb_patient.sms_message
+      msg = "#{tb_patient.name}: "
+      #select all ongoing treatments
+      tb_patient.treatments.select { |t| t.start_date <= Date.today &&
+                                         t.end_date >= Date.today
+
+      }.each do |ongoing_treatment|
+        if ongoing_treatment.frequency == 'weekly' then
+          #create a message for these ongoing treatments
+          msg += "#{ongoing_treatment.message}\n"
+        end
+      end
         SmsHelper::send_sms(tb_patient.mobile, msg) if send
         messages += "#{msg}\n"
-      end
     end
 
-    logger.info "TB Patient messages sent at #{Time.now}"
+    logger.info "TB Patient (continuous phase) messages sent at #{Time.now}"
     logger.info messages
     messages
   end
@@ -90,21 +98,28 @@ class TbPatient < ActiveRecord::Base
   # at 7:30AM IST, or 2PM UTC/GMT, or 10PM EST
   def self.send_triweekly_reminders(send = true)
     messages = ""
-    #treatments.select {|t| t.startdate == Date.today }.any?
-
     all.each do |tb_patient|
-      if () #check if this is a triweekly reminder
-        msg = tb_patient.sms_message
+      msg = "#{tb_patient.name}: "
+      #select all ongoing treatments
+      tb_patient.treatments.select { |t| t.start_date <= Date.today &&
+                                         t.end_date >= Date.today
+
+      }.each do |ongoing_treatment|
+        if ongoing_treatment.frequency == 'triweekly' then
+          #create a message for these ongoing treatments
+          msg += "#{ongoing_treatment.message}\n"
+        end
+      end
         SmsHelper::send_sms(tb_patient.mobile, msg) if send
         messages += "#{msg}\n"
-      end
     end
 
-    logger.info "TB Patient messages sent at #{Time.now}"
+    logger.info "TB Patient (intensive phase) messages sent at #{Time.now}"
     logger.info messages
     messages
   end
 
+=begin
   def sms_message
     msg = "#{name}- Today: "
 
@@ -116,6 +131,7 @@ class TbPatient < ActiveRecord::Base
     msg += (today.empty?) ? "None" : today
     msg
   end
+=end
 
 
 end

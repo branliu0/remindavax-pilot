@@ -32,7 +32,7 @@ class TreatmentsController < ApplicationController
     def authorize
       @treatment = Treatment.find_by_id(params[:id])
       unless @treatment && @treatment.tb_patient.phc.id == current_user.phc.id
-        flash[:error] = "You do not have access to this appoinment"
+        flash[:error] = "You do not have access to this treatment"
         if @treatment
           redirect_to @treatment.tb_patient
         else

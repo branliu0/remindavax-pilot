@@ -14,10 +14,17 @@ class Treatment < ActiveRecord::Base
     treatment_type.name
   end
 
-  def message
-    treatment_type.message.gsub(/%date%/, date_str).gsub(/%delivery_place%/, Patient::DeliveryPlace[patient.delivery_place.to_i] || "Undefined")
+  def frequency
+    treatment_type.frequency
   end
 
+  def message
+  #  treatment_type.message.gsub(/%date%/, date_str).gsub(/%delivery_place%/, Patient::DeliveryPlace[patient.delivery_place.to_i] || "Undefined")
+    treatment_type.message
+  end
+
+
+=begin
   def date_str
     date.strftime("%d-%m-%Y")
   end
@@ -39,5 +46,6 @@ class Treatment < ActiveRecord::Base
     .group("yrwk")
     .order("yrwk DESC")
   end
+=end
 
 end
