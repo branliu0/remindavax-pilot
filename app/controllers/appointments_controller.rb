@@ -2,13 +2,15 @@ class AppointmentsController < ApplicationController
   before_filter :authorize, :only => :destroy
 
   def create
-    # TODO: Give some sort of feedback when the save fails
     @patient = Patient.find(params[:id])
     @appointment = @patient.appointments.build(params[:appointment])
     if @appointment.save
       flash[:success] = 'Successfully added an appointment!'
+      redirect_to @patient
+    else
+      flash[:error] = @appointment.errors.to_a
+      redirect_to @patient
     end
-    redirect_to @patient
   end
 
   def batch_update_dates

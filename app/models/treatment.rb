@@ -9,6 +9,7 @@ class Treatment < ActiveRecord::Base
   validates :treatment_type, :presence => true
   validates :start_date, :presence => true
   validates :end_date, :presence => true
+  validates_date :end_date, :after => :start_date
 
   def name
     treatment_type.name
