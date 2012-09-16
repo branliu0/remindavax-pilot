@@ -70,12 +70,14 @@ class TbPatientsController < ApplicationController
     end
   end
 
+=end
   def autocomplete
-    @patients = Patient.search(current_user.phc, params[:term]).order("name ASC").map(&:name)
+    @tb_patients = TbPatient.search(current_user.phc, params[:term]).order("name ASC").map(&:name)
     respond_to do |format|
-      format.json { render :json => @patients }
+      format.json { render :json => @tb_patients }
     end
   end
+=begin
 
   def today
     # Yesterday and today
