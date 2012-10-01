@@ -2,8 +2,8 @@
     <td class="check-in" data-patient="<%= appt_today.patient.id %>" data-checked-in="<%= appt_today.patient.checked_in? %>"></td>
     <td><%= link_to appt_today.patient.name, appt_today.patient %></td>
     <td><%= appt_today.patient.taayi_card_number %></td>
-    <td><%= (appt_today.patient.subcenter.nil?) ? "None" : (link_to appt_today.patient.subcenter.name, appt_today.patient.subcenter) %></td>
-    <td><%= (appt_today.patient.anm.nil?) ? "None" : (link_to appt_today.patient.anm.name, appt_today.patient.anm) %></td>
+    <td><%= (appt_today.patient.subcenter.nil?) ? (link_to "None (Assign?)", edit_patient_path(appt_today.patient) ) : (link_to appt_today.patient.subcenter.name, appt_today.patient.subcenter) %></td>
+    <td><%= (appt_today.patient.anm.nil?) ? (link_to "None (Assign?)", edit_patient_path(appt_today.patient) ) : (link_to appt_today.patient.anm.name, appt_today.patient.anm) %></td>
     <td><%= appt_today.info %></td>
     <td><%= link_to "Edit", edit_patient_path(appt_today.patient) %></td>
     <td><%= link_to "Delete", appt_today.patient, :method => :delete, :confirm => "Are you sure you want to delete this registration?" %></td>
